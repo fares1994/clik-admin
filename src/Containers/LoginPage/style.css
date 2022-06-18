@@ -1,0 +1,16 @@
+.login-page-container {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  font-size: xx-large;
+  background-color: #fef8e1;
+}
+.login-container {
+  margin-top: 20px;
+  border: 1px orange solid;
+  border-radius: 10px;
+  padding: 70px 100px 30px;
+}
