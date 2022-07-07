@@ -1,4 +1,4 @@
-import {  DataProvider } from "@pankod/refine-core";
+import { DataProvider } from "@pankod/refine-core";
 import { GraphQLClient } from "graphql-request";
 import * as gql from "gql-query-builder";
 import pluralize from "pluralize";
@@ -109,23 +109,28 @@ const dataProvider = (client: GraphQLClient): DataProvider => {
             const singularResource = pluralize.singular(resource);
             const camelCreateName = camelCase(`create-${singularResource}`);
 
-            const operation = metaData?.operation ?? camelCreateName;
+            let operation = metaData?.operation ?? camelCreateName;
+
+            if (resource?.includes('custom')) {
+                operation = resource.split('-')[0]
+            }
 
             const { query, variables: gqlVariables } = gql.mutation({
-                operation,
-                variables: {
-                    input: {
-                        value: { data: variables },
-                        type: `${camelCreateName}Input`,
-                    },
-                },
-                fields: metaData?.fields ?? [
-                    {
-                        operation: singularResource,
-                        fields: ["id"],
-                        variables: {},
-                    },
-                ],
+                operation: operation || '',
+                variables,
+                // {
+                //     input: {
+                //         value: { data: variables },
+                //         type: `${camelCreateName}Input`,
+                //     },
+                // },
+                // fields: metaData?.fields ?? [
+                //     {
+                //         operation: singularResource,
+                //         fields: ["id"],
+                //         variables: {},
+                //     },
+                // ],
             });
             const response = await client.request(query, gqlVariables);
 
@@ -172,23 +177,22 @@ const dataProvider = (client: GraphQLClient): DataProvider => {
             const singularResource = pluralize.singular(resource);
             const camelUpdateName = camelCase(`update-${singularResource}`);
 
-            const operation = metaData?.operation ?? camelUpdateName;
+            let operation = metaData?.operation ?? camelUpdateName;
+
+            if (resource?.includes('custom')) {
+                operation = resource.split('-')[0]
+            }
 
             const { query, variables: gqlVariables } = gql.mutation({
                 operation,
-                variables: {
-                    input: {
-                        value: { where: { id }, data: variables },
-                        type: `${camelUpdateName}Input`,
-                    },
-                },
-                fields: metaData?.fields ?? [
-                    {
-                        operation: singularResource,
-                        fields: ["id"],
-                        variables: {},
-                    },
-                ],
+                variables,
+                // fields: metaData?.fields ?? [
+                //     {
+                //         operation: singularResource,
+                //         fields: ["id"],
+                //         variables: {},
+                //     },
+                // ],
             });
             const response = await client.request(query, gqlVariables);
 
@@ -235,12 +239,16 @@ const dataProvider = (client: GraphQLClient): DataProvider => {
             const singularResource = pluralize.singular(resource);
             const camelResource = camelCase(singularResource);
 
-            const operation = metaData?.operation ?? camelResource;
+            let operation = metaData?.operation ?? camelResource;
+
+            if (resource?.includes('custom')) {
+                operation = resource.split('-')[0]
+            }
 
             const { query, variables } = gql.query({
                 operation,
                 variables: {
-                    id: { value: id, type: "ID", required: true },
+                    id: { value: id, type: resource?.includes('custom') ? "String" : 'ID', required: true },
                 },
                 fields: metaData?.fields,
             });
@@ -256,23 +264,28 @@ const dataProvider = (client: GraphQLClient): DataProvider => {
             const singularResource = pluralize.singular(resource);
             const camelDeleteName = camelCase(`delete-${singularResource}`);
 
-            const operation = metaData?.operation ?? camelDeleteName;
+            let operation = metaData?.operation ?? camelDeleteName;
+
+            if (resource.includes('custom')) {
+                operation = resource.split('-')[0]
+            }
 
             const { query, variables } = gql.mutation({
                 operation,
                 variables: {
-                    input: {
-                        value: { where: { id } },
-                        type: `${camelDeleteName}Input`,
-                    },
+                    id: { value: id, type: "String", required: true },
+                    // input: {
+                    //     value: { where: { id } },
+                    //     // type: `${camelDeleteName}Input`,
+                    // },
                 },
-                fields: metaData?.fields ?? [
-                    {
-                        operation: singularResource,
-                        fields: ["id"],
-                        variables: {},
-                    },
-                ],
+                // fields: metaData?.fields ?? [
+                //     {
+                //         operation: singularResource,
+                //         fields: ["id"],
+                //         variables: {},
+                //     },
+                // ],
             });
 
             const response = await client.request(query, variables);

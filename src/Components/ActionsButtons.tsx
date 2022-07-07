@@ -137,7 +137,7 @@ export const Actions: React.FC<ActionProps> = ({
           }
           onClick={onClickDelete}
         >
-          {record?.is_deleted ? 'استرجاع' : 'حذف'}
+          {record?.is_deleted ? 'Retrieve' : 'Delete'}
         </Menu.Item>
       )}
       {edit && (

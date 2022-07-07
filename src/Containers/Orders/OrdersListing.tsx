@@ -4,17 +4,19 @@ import {
     Table,
     TextField,
     BooleanField,
+    notification,
 } from '@pankod/refine-antd';
 import { useNavigation, useTable } from '@pankod/refine-core';
 import { order } from 'Containers/QueryReturns';
 import { Actions } from 'Components/ActionsButtons';
+import { removeRecord } from 'Containers/Actions/ConfigsActions';
 
 export const OrderesList: React.FC = () => {
     const { show, edit } = useNavigation();
     const { tableQueryResult } = useTable({
-        metaData: {
-            fields: order
-        },
+        syncWithLocation: true,
+        resource: 'findAllOrders',
+        metaData: { fields: order },
     });
 
     return (
@@ -55,6 +57,11 @@ export const OrderesList: React.FC = () => {
                     render={(value) => <TextField value={value} />}
                 />
                 <Table.Column
+                    dataIndex={'driver_name'}
+                    title={'Driver'}
+                    render={(value) => <TextField value={value || 'No Data'} />}
+                />
+                <Table.Column
                     dataIndex={'location'}
                     title={'Location'}
                     render={(value) => <TextField value={value} />}
@@ -65,6 +72,13 @@ export const OrderesList: React.FC = () => {
                     align={'center'}
                     render={(value) => <TextField value={value || 'No Data'} />}
                 />
+                <Table.Column
+                    dataIndex={'order_status'}
+                    title={'Status'}
+                    align={'center'}
+                    render={(value) => <TextField value={value || 'No Data'} />}
+                />
+
                 <Table.Column
                     dataIndex={'deleted'}
                     title={'Deleted'}
@@ -79,10 +93,14 @@ export const OrderesList: React.FC = () => {
                     render={(_text, record): any => {
                         return (
                             <Actions
-                                name_ar="User"
+                                name_ar="Order"
                                 edit
                                 record={record}
-                                onClickEdit={() => record?.id && edit('findAllOrders', record?.id)}
+                                deleteRecord
+                                onClickEdit={() => record?._id && edit('findAllOrders', record?._id)}
+                                onClickDelete={() =>
+                                    removeRecord('removeOrder-custom', record?.id, tableQueryResult?.refetch)
+                                }
                             />
                         );
                     }}
