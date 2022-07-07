@@ -102,6 +102,8 @@ export const order = [
     // "created_at",
     "updated_at",
     "deleted",
+    "driver_name",
+    "order_status",
     {
         products: [
             {
@@ -132,4 +134,37 @@ export const order = [
             "color"
         ]
     }
+]
+
+
+export const products = [
+    "_id",
+    "name",
+    "price",
+    "description",
+    "created_at",
+    "updated_at",
+    "deleted",
+    {
+        choices: [
+            // {
+            //     image: [
+            //         "_id",
+            //         "type",
+            //         "filename",
+            //         "created_at"
+            //     ],
+            // },
+            "colorsHex",
+        ]
+    }
+]
+
+
+export const admins = [
+    "id",
+    "name",
+    "email",
+    "username",
+    "role",
 ]

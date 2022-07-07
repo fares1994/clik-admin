@@ -9,15 +9,15 @@ import {
   Typography,
 } from '@pankod/refine-antd';
 import styled from 'styled-components';
-import { order } from 'Containers/QueryReturns';
+import { products } from 'Containers/QueryReturns';
 import dayjs from 'dayjs';
 import { useParams } from "react-router-dom";
 import { Actions } from 'Components/ActionsButtons';
-import { removeRecord, showRecord } from 'Containers/Actions/ConfigsActions';
+import { removeRecord, showRecord } from '../Actions/ConfigsActions';
 
 const { useBreakpoint } = Grid;
 const { Title, Text } = Typography;
-function ShowOrder() {
+function ShowProduct() {
   const params = useParams();
   const screens = useBreakpoint();
   const [record, setRecord] = useState<any>();
@@ -26,15 +26,14 @@ function ShowOrder() {
 
   useEffect(() => {
     if (refresh && params?.id) {
-      showRecord('findOrderById-custom', params?.id, order, setRecord, setRefresh)
+      showRecord('findProductById-custom', params?.id, products, setRecord, setRefresh)
     }
   }, [refresh, params?.id])
-
   return (
     <>
       <Show
         isLoading={!record}
-        title={'Order Details'}
+        title={'Product Details'}
         pageHeaderProps={{
           extra: (
             <Space>
@@ -42,14 +41,14 @@ function ShowOrder() {
                 <Text>{'Refresh'}</Text>
               </RefreshButton>
               <ListButton>
-                <Text>{'Orders'}</Text>
+                <Text>{'Products'}</Text>
               </ListButton>
               <Actions
-                name_ar="Order"
+                name_ar="Product"
                 deleteRecord
                 record={record}
                 onClickDelete={() =>
-                  removeRecord('removeOrder-custom', record?.id, handleRefetch)
+                  removeRecord('removeProduct-custom', params?.id, handleRefetch)
                 }
               />
             </Space>
@@ -64,37 +63,22 @@ function ShowOrder() {
             <Title level={5}>{'Name'}</Title>
             <Text>{record?.name}</Text>
 
-            <Title level={5}>{'Email'}</Title>
-            <Text>{record?.email}</Text>
+            <Title level={5}>{'Price'}</Title>
+            <Text>{record?.price}</Text>
 
-            <Title level={5}>{'Driver'}</Title>
-            <Text>{record?.driver_name}</Text>
-
-            <Title level={5}>{'Location'}</Title>
-            <Text>{record?.location}</Text>
-
-            <Title level={5}>{'Phone Number'}</Title>
-            <Text>{record?.phonenumber}</Text>
-
-            <Title level={5}>{'Status'}</Title>
-            <Text>{record?.order_status}</Text>
+            <Title level={5}>{'Description'}</Title>
+            <DescriptionWrapper>
+              <Text>{record?.description}</Text>
+            </DescriptionWrapper>
 
           </Break>
           <Break breakPoint={!!screens.md}>
-            {record?.products?.length > 0 && (
+            {record?.choices?.length > 0 && (
               <>
-                <Title level={5}>{'Products'}</Title>
-                {record?.products?.map((item: any, key: number) => {
+                <Title level={5}>{'Choices'}</Title>
+                {record?.choices?.map((item: any, key: number) => {
                   return (
-                    <div style={{ display: 'flex', flexDirection: 'column', marginBottom: 5 }}>
-                      <Text style={{ marginTop: 5, marginLeft: -15 }}>{(key + 1) + '- ' + 'Color: ' + item?.color}</Text>
-                      <Text style={{ marginTop: 5 }}>{'Quantity: ' + item?.quantity || 'No Data'}</Text>
-                      <Text style={{ marginTop: 5 }}>{'Name: ' + item?.product?.name || 'No Data'}</Text>
-                      <Text style={{ marginTop: 5 }}>{'Price: ' + item?.product?.price || 'No Data'}</Text>
-                      <DescriptionWrapper>
-                        <Text style={{ marginTop: 5 }}>{'Description: ' + item?.product?.description || 'No Data'}</Text>
-                      </DescriptionWrapper>
-                    </div>
+                    <Text style={{ marginTop: 5, marginLeft: -15 }}>{(key + 1) + '- ' + 'Color: ' + item?.colorsHex}</Text>
                   )
                 })}
 
@@ -115,7 +99,7 @@ function ShowOrder() {
     </>
   );
 }
-export default ShowOrder;
+export default ShowProduct;
 const Break = styled.div<{ breakPoint?: boolean }>`
   margin: ${(props) => (props.breakPoint ? '' : '20px')};
 `;

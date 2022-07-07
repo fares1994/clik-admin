@@ -16,7 +16,6 @@ const LoginPage: React.FC = () => {
 
   const onFinish = (values: Values) => {
     login({ ...values });
-    console.log("Success:", values);
   };
 
   const onFinishFailed = (errorInfo: any) => {
