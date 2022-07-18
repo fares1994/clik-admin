@@ -26,8 +26,8 @@ export const UpdateRecordAction = async (resource: string, variables: any, refet
     });
 
     const response = await clientWithHeaders.request(query, gqlVariables);
-    if (!response?.updateOrder) {
-        return notification.success({
+    if (!response) {
+        return notification.error({
             message: 'Error',
             description: "Something went wrong",
         })

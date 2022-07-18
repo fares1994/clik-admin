@@ -4,7 +4,6 @@ import {
     Table,
     TextField,
     BooleanField,
-    notification,
 } from '@pankod/refine-antd';
 import { useNavigation, useTable } from '@pankod/refine-core';
 import { order } from 'Containers/QueryReturns';

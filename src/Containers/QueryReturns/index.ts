@@ -168,3 +168,22 @@ export const admins = [
     "username",
     "role",
 ]
+
+export const globalLniks = [
+    "_id",
+    "type",
+    "title",
+    "redirectionType",
+    "placeholder",
+               // {
+            //     image: [
+            //         "_id",
+            //         "type",
+            //         "filename",
+            //         "created_at"
+            //     ],
+            // },
+    "created_at",
+    "updated_at",
+    "deleted",
+]
