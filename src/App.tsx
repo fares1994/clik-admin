@@ -7,7 +7,7 @@ import {
 } from "@pankod/refine-antd";
 import "@pankod/refine-antd/dist/styles.min.css";
 import LoginPage from "Containers/LoginPage";
-import Dashboard from "Containers/Dashboard";
+// import Dashboard from "Containers/Dashboard";
 import "./App.css";
 import Logo from "./Assets/Images/Rectangle.png";
 import { UsersList } from "Containers/UsersList/UsersList";
@@ -27,6 +27,11 @@ import { EditProduct } from "Containers/Products/EditProduct";
 import { CreateProduct } from "Containers/Products/CreateProduct";
 import { AdminsList } from "Containers/Admin/AdminsList";
 import { RiAdminFill } from 'react-icons/ri';
+import { AiOutlineLink } from "react-icons/ai";
+import { GlobalLinksList } from "Containers/GlobalLinks/GlobalLinksList";
+import ShowGlobalLink from "Containers/GlobalLinks/ShowGlobalLink";
+import { EditGlobalLink } from "Containers/GlobalLinks/EditGlobalLink";
+import { CreateGlobalLink } from "Containers/GlobalLinks/CreateGlobalLink";
 
 export const API_URL = "https://clikstaging.herokuapp.com/graphql";
 export const UPLOAD_URI = `https://clikstaging.herokuapp.com/uploads/public`;
@@ -102,6 +107,15 @@ function App() {
           edit: EditProduct,
           create: CreateProduct,
           icon: <MdProductionQuantityLimits size={20} />,
+        },
+        {
+          name: "findAllGlobalLinks",
+          options: { label: "Global Links" },
+          list: GlobalLinksList,
+          show: ShowGlobalLink,
+          edit: EditGlobalLink,
+          create: CreateGlobalLink,
+          icon: <AiOutlineLink size={20} />,
         },
       ]}
       Layout={Layout}

@@ -39,7 +39,7 @@ export const EditUser: React.FC<IResourceComponentsProps> = () => {
     });
     const record = queryResult?.data?.data;
 
-    const { values, handleChange, setFieldValue, handleSubmit, resetForm } =
+    const { values, handleChange, setFieldValue, handleSubmit } =
         useFormik({
             initialValues: {
                 id: record?.id,
@@ -107,7 +107,7 @@ export const EditUser: React.FC<IResourceComponentsProps> = () => {
             setFieldValue('gender', record?.gender)
 
         }
-    }, [record])
+    }, [record, setFieldValue])
 
     return (
         <Edit

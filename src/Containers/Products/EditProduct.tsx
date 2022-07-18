@@ -1,11 +1,9 @@
 import { IResourceComponentsProps } from '@pankod/refine-core';
 import React, { useEffect, useState } from 'react';
 import {
-    useForm,
     Form,
     Input,
     Edit,
-    Select,
     ListButton,
     Typography,
     ShowButton,
@@ -44,7 +42,7 @@ export const EditProduct: React.FC<IResourceComponentsProps> = () => {
         }
     }, [refresh, params?.id])
 
-    const { values, handleChange, setFieldValue, handleSubmit, resetForm } =
+    const { values, handleChange, setFieldValue, handleSubmit } =
         useFormik({
             initialValues: {
                 _id: record?._id,
@@ -102,7 +100,7 @@ export const EditProduct: React.FC<IResourceComponentsProps> = () => {
             setFieldValue('description', record?.description)
             setFieldValue('choices', record?.choices)
         }
-    }, [record])
+    }, [record, setFieldValue])
 
 
     return (

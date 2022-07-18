@@ -21,7 +21,7 @@ function ShowUsers() {
       fields: account
     }
   });
-  const { data, isLoading, refetch } = queryResult;
+  const { data, isLoading } = queryResult;
   const record = data?.data;
   return (
     <>

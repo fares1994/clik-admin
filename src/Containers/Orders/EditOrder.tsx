@@ -1,7 +1,6 @@
 import { IResourceComponentsProps } from '@pankod/refine-core';
 import React, { useEffect, useState } from 'react';
 import {
-    useForm,
     Form,
     Input,
     Edit,
@@ -44,7 +43,7 @@ export const EditOrder: React.FC<IResourceComponentsProps> = () => {
         }
     }, [refresh, params?.id])
 
-    const { values, handleChange, setFieldValue, handleSubmit, resetForm } =
+    const { values, handleChange, setFieldValue, handleSubmit } =
         useFormik({
             initialValues: {
                 id: record?.id,
@@ -110,7 +109,7 @@ export const EditOrder: React.FC<IResourceComponentsProps> = () => {
             setFieldValue('driver_name', record?.driver_name)
             setFieldValue('order_status', record?.order_status)
         }
-    }, [record])
+    }, [record, setFieldValue, params?.id])
 
     return (
         <Edit
