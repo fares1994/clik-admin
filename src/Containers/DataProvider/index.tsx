@@ -3,6 +3,7 @@ import { GraphQLClient } from "graphql-request";
 import * as gql from "gql-query-builder";
 import pluralize from "pluralize";
 import camelCase from "camelcase";
+import { API_URL } from "App";
 
 // const genereteSort = (sort?: CrudSorting) => {
 //     if (sort && sort.length > 0) {
@@ -50,13 +51,12 @@ import camelCase from "camelcase";
 const dataProvider = (client: GraphQLClient): DataProvider => {
     return {
         getList: async ({ resource, pagination, sort, filters, metaData }) => {
-            // const current = pagination?.current || 1;
-            // const pageSize = pagination?.pageSize || 10;
-
-            // const sortBy = genereteSort(sort);
-            // const filterBy = generateFilter(filters);
-
-
+            const token = JSON.parse(await localStorage.getItem('account') || '')?.token;
+            let clientList = new GraphQLClient(API_URL, {
+                headers: {
+                    "Authorization": `Bearer ${token}`
+                }
+            });
             const camelResource = camelCase(resource);
 
             const operation = metaData?.operation ?? camelResource;
@@ -65,15 +65,11 @@ const dataProvider = (client: GraphQLClient): DataProvider => {
                 operation,
                 variables: {
                     ...metaData?.variables,
-                    // sort: sortBy,
-                    // where: { value: filterBy, type: "JSON" },
-                    // start: (current - 1) * pageSize,
-                    // limit: pageSize,
                 },
                 fields: metaData?.fields,
             });
 
-            const response = await client.request(query, variables);
+            const response = await clientList.request(query, variables);
 
 
             return {

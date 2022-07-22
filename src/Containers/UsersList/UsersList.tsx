@@ -1,12 +1,8 @@
-import React from 'react';
-import {
-  List,
-  Table,
-  TextField,
-} from '@pankod/refine-antd';
-import { useNavigation, useTable } from '@pankod/refine-core';
-import { account } from 'Containers/QueryReturns';
-import { Actions } from 'Components/ActionsButtons';
+import React from "react";
+import { List, Table, TextField } from "@pankod/refine-antd";
+import { useNavigation, useTable } from "@pankod/refine-core";
+import { account } from "Containers/QueryReturns";
+import { Actions } from "Components/ActionsButtons";
 
 export const UsersList: React.FC = () => {
   const { show, edit } = useNavigation();
@@ -16,13 +12,12 @@ export const UsersList: React.FC = () => {
     },
   });
 
-
   return (
     <List
-      title={`${'Users'}`}
+      title={`${"Users"}`}
       pageHeaderProps={{
         extra: (
-          <div style={{ display: 'flex', flexDirection: 'row' }}>
+          <div style={{ display: "flex", flexDirection: "row" }}>
             {/* <Search
               path="comment"
               setSearchResults={setSearchResults}
@@ -35,39 +30,44 @@ export const UsersList: React.FC = () => {
       <Table
         dataSource={tableQueryResult.data?.data}
         rowKey="id"
-        style={{ cursor: 'pointer' }}
+        style={{ cursor: "pointer" }}
         onRow={(record) => {
           return {
             onClick: () => {
-              record.id && show('findUsers', record.id);
+              record.id && show("findUsersAuth", record.id);
             },
           };
         }}
       >
         <Table.Column
+          dataIndex="id"
+          title={"ID"}
+          render={(value) => <TextField value={value} />}
+        />
+
+        <Table.Column
           dataIndex="name"
-          title={'Name'}
+          title={"Name"}
           render={(value) => <TextField value={value} />}
         />
         <Table.Column
           dataIndex="username"
-          title={'Username'}
+          title={"Username"}
           render={(value) => <TextField value={value} />}
         />
         <Table.Column
-          dataIndex={'email'}
-          title={'Email'}
+          dataIndex={"email"}
+          title={"Email"}
           render={(value) => <TextField value={value} />}
         />
         <Table.Column
-          dataIndex={'country'}
-          title={'Country'}
-          align={'center'}
-          render={(value) => <TextField value={value || 'No Data'} />}
+          dataIndex={"country"}
+          title={"Country"}
+          align={"center"}
+          render={(value) => <TextField value={value || "No Data"} />}
         />
-
         <Table.Column<any>
-          title={'Actoins'}
+          title={"Actoins"}
           dataIndex="actions"
           align="center"
           render={(_text, record): any => {
@@ -76,7 +76,9 @@ export const UsersList: React.FC = () => {
                 name_ar="User"
                 edit
                 record={record}
-                onClickEdit={() => record?.id && edit('findUsers', record?.id)}
+                onClickEdit={() =>
+                  record?.id && edit("findUsersAuth", record?.id)
+                }
               />
             );
           }}

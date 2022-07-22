@@ -1,15 +1,15 @@
-import React from 'react';
+import React from "react";
 import {
   BooleanField,
   CreateButton,
   List,
   Table,
   TextField,
-} from '@pankod/refine-antd';
-import { useNavigation, useTable } from '@pankod/refine-core';
-import { products } from 'Containers/QueryReturns';
-import { Actions } from 'Components/ActionsButtons';
-import { removeRecord } from '../Actions/ConfigsActions';
+} from "@pankod/refine-antd";
+import { useNavigation, useTable } from "@pankod/refine-core";
+import { products } from "Containers/QueryReturns";
+import { Actions } from "Components/ActionsButtons";
+import { UpdateRecordAction } from "../Actions/ConfigsActions";
 
 export const ProductsList: React.FC = () => {
   const { show, edit } = useNavigation();
@@ -19,13 +19,12 @@ export const ProductsList: React.FC = () => {
     },
   });
 
-
   return (
     <List
-      title={`${'Products'}`}
+      title={`${"Products"}`}
       pageHeaderProps={{
         extra: (
-          <div style={{ display: 'flex', flexDirection: 'row' }}>
+          <div style={{ display: "flex", flexDirection: "row" }}>
             {/* <Search
               path="comment"
               setSearchResults={setSearchResults}
@@ -39,35 +38,40 @@ export const ProductsList: React.FC = () => {
       <Table
         dataSource={tableQueryResult.data?.data}
         rowKey="id"
-        style={{ cursor: 'pointer' }}
+        style={{ cursor: "pointer" }}
         onRow={(record) => {
           return {
             onClick: () => {
-              record._id && show('findProducts', record._id);
+              record._id && show("findProducts", record._id);
             },
           };
         }}
       >
         <Table.Column
+          dataIndex="_id"
+          title={"ID"}
+          render={(value) => <TextField value={value} />}
+        />
+        <Table.Column
           dataIndex="name"
-          title={'Name'}
+          title={"Name"}
           render={(value) => <TextField value={value} />}
         />
         <Table.Column
           dataIndex="price"
-          title={'Price'}
+          title={"Price"}
           render={(value) => <TextField value={value} />}
         />
 
         <Table.Column
-          dataIndex={'deleted'}
-          title={'Deleted'}
-          align={'center'}
+          dataIndex={"deleted"}
+          title={"Deleted"}
+          align={"center"}
           render={(value) => <BooleanField value={value} />}
         />
 
         <Table.Column<any>
-          title={'Actoins'}
+          title={"Actoins"}
           dataIndex="actions"
           align="center"
           render={(_text, record): any => {
@@ -77,8 +81,31 @@ export const ProductsList: React.FC = () => {
                 edit
                 deleteRecord
                 record={record}
-                onClickEdit={() => record?._id && edit('findProducts', record?._id)}
-                onClickDelete={() => removeRecord('removeProduct-custom', record?._id, tableQueryResult?.refetch)}
+                onClickEdit={() =>
+                  record?._id && edit("findProducts", record?._id)
+                }
+                onClickDelete={
+                  () =>
+                    UpdateRecordAction(
+                      "updateProduct",
+                      {
+                        updateProductInput: {
+                          value: {
+                            _id: record?._id,
+                            deleted: !record?.deleted,
+                          },
+                          required: true,
+                          type: "UpdateProductInput",
+                        },
+                      },
+                      tableQueryResult?.refetch
+                    )
+                  // removeRecord(
+                  //   "removeProduct-custom",
+                  //   record?._id,
+                  //   tableQueryResult?.refetch
+                  // )
+                }
               />
             );
           }}
