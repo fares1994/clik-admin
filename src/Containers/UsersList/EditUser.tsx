@@ -112,6 +112,8 @@ export const EditUser: React.FC<IResourceComponentsProps> = () => {
     }
   }, [record, setFieldValue]);
 
+  if (!values?.gender) return <></>;
+
   return (
     <Edit
       saveButtonProps={buttonProps}

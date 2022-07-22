@@ -167,7 +167,7 @@ function ShowProduct() {
           />
 
           <Table.Column<any>
-            title={"Actoins"}
+            title={"Actions"}
             dataIndex="actions"
             align="center"
             render={(_text, record): any => {

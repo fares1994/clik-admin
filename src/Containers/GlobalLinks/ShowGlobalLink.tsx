@@ -42,7 +42,7 @@ function ShowGlobalLink() {
     <>
       <Show
         isLoading={!record}
-        title={"Glbal Link Details"}
+        title={"Global Link Details"}
         pageHeaderProps={{
           extra: (
             <Space>

@@ -5,7 +5,7 @@ export const TOKEN_KEY = "refine-auth";
 
 export const authProvider: AuthProvider = {
   login: async ({ username, password }) => {
-    loginAction(username, password)
+    loginAction(username, password);
     // if (username === "admin" && password === "admin") {
     //   localStorage.setItem(TOKEN_KEY, username);
     //   return Promise.resolve();
@@ -13,12 +13,19 @@ export const authProvider: AuthProvider = {
     // return Promise.reject(new Error("username: admin, password: admin"));
   },
   logout: () => {
-    logoutAction()
+    logoutAction();
     return Promise.resolve();
   },
-  checkError: () => Promise.resolve(),
+  checkError: (error) => {
+    if (error?.message?.includes("Forbidden resource")) {
+      logoutAction();
+      return Promise.reject();
+    } else {
+      return Promise.resolve();
+    }
+  },
   checkAuth: () => {
-    const account = localStorage.getItem('account');
+    const account = localStorage.getItem("account");
     if (account) {
       return Promise.resolve();
     } else {
@@ -27,13 +34,11 @@ export const authProvider: AuthProvider = {
   },
   getPermissions: () => Promise.resolve(),
   getUserIdentity: async () => {
-    const account = localStorage.getItem('account');
+    const account = localStorage.getItem("account");
     if (!account) {
       return Promise.reject();
     }
 
-    return Promise.resolve(
-      JSON.parse(account)
-    );
+    return Promise.resolve(JSON.parse(account));
   },
 };

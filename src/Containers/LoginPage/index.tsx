@@ -24,7 +24,7 @@ const LoginPage: React.FC = () => {
 
   return (
     <div className="login-page-container">
-      Clik Admin
+      Click Admin
       <div className="login-container">
         <Form
           name="basic"

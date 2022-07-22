@@ -9,7 +9,6 @@ import {
   ShowButton,
   Upload,
   Select,
-  Switch,
 } from "@pankod/refine-antd";
 import { useParams } from "react-router-dom";
 import { globalLniks } from "Containers/QueryReturns";
@@ -181,12 +180,12 @@ export const EditGlobalLink: React.FC<IResourceComponentsProps> = () => {
           />
         </Form.Item>
 
-        <Form.Item label="deleted" name={"Deleted"}>
+        {/* <Form.Item label="deleted" name={"Deleted"}>
           <Switch
             onChange={(val) => setFieldValue("deleted", val)}
             defaultChecked={!!values?.deleted}
           />
-        </Form.Item>
+        </Form.Item> */}
 
         <Form.Item name={"image"} noStyle>
           <Upload.Dragger

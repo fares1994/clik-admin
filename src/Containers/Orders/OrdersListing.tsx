@@ -4,9 +4,11 @@ import { useNavigation, useTable } from "@pankod/refine-core";
 import { order } from "Containers/QueryReturns";
 import { Actions } from "Components/ActionsButtons";
 import { removeRecord } from "Containers/Actions/ConfigsActions";
+import { Search } from "Components/Search";
 
 export const OrderesList: React.FC = () => {
   const { show, edit } = useNavigation();
+  const [searchResults, setSearchResults] = React.useState([]);
   const { tableQueryResult } = useTable({
     syncWithLocation: true,
     resource: "findAllOrders",
@@ -19,17 +21,22 @@ export const OrderesList: React.FC = () => {
       pageHeaderProps={{
         extra: (
           <div style={{ display: "flex", flexDirection: "row" }}>
-            {/* <Search
-              path="comment"
+            <Search
+              path="order"
               setSearchResults={setSearchResults}
               searchResults={searchResults}
-            /> */}
+              data={tableQueryResult.data?.data || []}
+            />
           </div>
         ),
       }}
     >
       <Table
-        dataSource={tableQueryResult.data?.data}
+        dataSource={
+          searchResults?.length > 0
+            ? searchResults
+            : tableQueryResult.data?.data
+        }
         rowKey="id"
         style={{ cursor: "pointer" }}
         onRow={(record) => {
@@ -86,7 +93,7 @@ export const OrderesList: React.FC = () => {
         />
 
         <Table.Column<any>
-          title={"Actoins"}
+          title={"Actions"}
           dataIndex="actions"
           align="center"
           render={(_text, record): any => {
