@@ -2,9 +2,7 @@ import { Refine } from "@pankod/refine-core";
 import routerProvider from "@pankod/refine-react-router-v6";
 import { GraphQLClient } from "graphql-request";
 import { authProvider } from "./authProvider";
-import {
-  Layout,
-} from "@pankod/refine-antd";
+import { Layout } from "@pankod/refine-antd";
 import "@pankod/refine-antd/dist/styles.min.css";
 import LoginPage from "Containers/LoginPage";
 // import Dashboard from "Containers/Dashboard";
@@ -13,12 +11,12 @@ import Logo from "./Assets/Images/Rectangle.png";
 import { UsersList } from "Containers/UsersList/UsersList";
 import dataProvider from "Containers/DataProvider";
 import ShowUsers from "Containers/UsersList/ShowUsers";
-import './index.css';
+import "./index.css";
 import { EditUser } from "Containers/UsersList/EditUser";
-import { FiUsers } from 'react-icons/fi'
+import { FiUsers } from "react-icons/fi";
 import { OrderesList } from "Containers/Orders/OrdersListing";
 import ShowOrder from "Containers/Orders/ShowOrder";
-import { BiReceipt } from 'react-icons/bi';
+import { BiReceipt } from "react-icons/bi";
 import { ProductsList } from "Containers/Products/ProductsList";
 import { MdProductionQuantityLimits } from "react-icons/md";
 import ShowProduct from "Containers/Products/ShowProduct";
@@ -26,7 +24,7 @@ import { EditOrder } from "Containers/Orders/EditOrder";
 import { EditProduct } from "Containers/Products/EditProduct";
 import { CreateProduct } from "Containers/Products/CreateProduct";
 import { AdminsList } from "Containers/Admin/AdminsList";
-import { RiAdminFill } from 'react-icons/ri';
+import { RiAdminFill } from "react-icons/ri";
 import { AiOutlineLink } from "react-icons/ai";
 import { GlobalLinksList } from "Containers/GlobalLinks/GlobalLinksList";
 import ShowGlobalLink from "Containers/GlobalLinks/ShowGlobalLink";
@@ -37,14 +35,11 @@ export const API_URL = "https://clikstaging.herokuapp.com/graphql";
 export const UPLOAD_URI = `https://clikstaging.herokuapp.com/uploads/public`;
 export const VIEW_UPLOAD_URI = `https://clikstaging.herokuapp.com/uploads/`;
 
-
 function App() {
-
-
   let client = new GraphQLClient(API_URL, {
     headers: {
-      "Authorization": `Bearer $2b$10$c8HGKqzillqXZocLWuo/R.WYXs3sMdWBthCdN/UoqkDuUPMCw4TZa`
-    }
+      Authorization: `Bearer $2b$10$c8HGKqzillqXZocLWuo/R.WYXs3sMdWBthCdN/UoqkDuUPMCw4TZa`,
+    },
   });
 
   const gqlDataProvider = dataProvider(client);
@@ -54,7 +49,7 @@ function App() {
       Title={() => (
         <img
           src={Logo}
-          alt="Clik"
+          alt="Click"
           style={{
             width: "-webkit-fill-available",
             height: 80,
@@ -84,7 +79,7 @@ function App() {
           icon: <RiAdminFill size={20} />,
         },
         {
-          name: "findUsers",
+          name: "findUsersAuth",
           options: { label: "Users" },
           list: UsersList,
           show: ShowUsers,
