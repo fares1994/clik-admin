@@ -1,16 +1,22 @@
 import React from "react";
-import { List, Table, TextField } from "@pankod/refine-antd";
+import { CreateButton, List, Table, TextField } from "@pankod/refine-antd";
 import { useNavigation, useTable } from "@pankod/refine-core";
 import { admins } from "Containers/QueryReturns";
 import { Actions } from "Components/ActionsButtons";
+import { removeRecord } from "Containers/Actions/ConfigsActions";
+import { Search } from "Components/Search";
 
 export const AdminsList: React.FC = () => {
-  const { show, edit } = useNavigation();
+  const { edit } = useNavigation();
+  const [searchResults, setSearchResults] = React.useState([]);
+
   const { tableQueryResult } = useTable({
     metaData: {
       fields: admins,
     },
   });
+
+  console.log();
 
   return (
     <List
@@ -18,26 +24,32 @@ export const AdminsList: React.FC = () => {
       pageHeaderProps={{
         extra: (
           <div style={{ display: "flex", flexDirection: "row" }}>
-            {/* <Search
-              path="comment"
+            <Search
+              path="user"
               setSearchResults={setSearchResults}
               searchResults={searchResults}
-            /> */}
+              data={tableQueryResult.data?.data || []}
+            />
+            <CreateButton style={{ marginLeft: 5 }}>Create Admin</CreateButton>
           </div>
         ),
       }}
     >
       <Table
-        dataSource={tableQueryResult.data?.data}
+        dataSource={
+          searchResults?.length > 0
+            ? searchResults
+            : tableQueryResult.data?.data
+        }
         rowKey="id"
-        style={{ cursor: "pointer" }}
-        onRow={(record) => {
-          return {
-            onClick: () => {
-              record.id && show("admins", record.id);
-            },
-          };
-        }}
+        // style={{ cursor: "pointer" }}
+        // onRow={(record) => {
+        //   return {
+        //     onClick: () => {
+        //       record.id && show("admins", record.id);
+        //     },
+        //   };
+        // }}
       >
         <Table.Column
           dataIndex="id"
@@ -67,15 +79,23 @@ export const AdminsList: React.FC = () => {
         />
 
         <Table.Column<any>
-          title={"Actoins"}
+          title={"Actions"}
           dataIndex="actions"
           align="center"
           render={(_text, record): any => {
             return (
               <Actions
                 name_ar="Admin"
+                deleteRecord
                 edit
                 record={record}
+                onClickDelete={() =>
+                  removeRecord(
+                    "removeAdmin-custom",
+                    record?.id,
+                    tableQueryResult?.refetch
+                  )
+                }
                 onClickEdit={() => record?.id && edit("admins", record?.id)}
               />
             );

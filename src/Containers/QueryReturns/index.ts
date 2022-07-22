@@ -135,3 +135,32 @@ export const globalLniks = [
 ];
 
 export const titles = ["_id", "title", "category", "updated_at", "deleted"];
+
+export const accountContacts = [
+  "email",
+  "username",
+  "facebookId",
+  "googleId",
+  "twitterId",
+  "instagramId",
+  "gender",
+  "dob",
+  "name",
+  "city",
+  "country",
+  "personalBio",
+  "_id",
+];
+
+export const contacts = [
+  "_id",
+  "updated_at",
+  "created_at",
+  "deleted",
+  {
+    owner: accountContacts,
+  },
+  {
+    contacts: accountContacts,
+  },
+];

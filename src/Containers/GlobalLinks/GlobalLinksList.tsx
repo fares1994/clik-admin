@@ -10,9 +10,11 @@ import { useNavigation, useTable } from "@pankod/refine-core";
 import { globalLniks } from "Containers/QueryReturns";
 import { Actions } from "Components/ActionsButtons";
 import { UpdateRecordAction } from "../Actions/ConfigsActions";
+import { Search } from "Components/Search";
 
 export const GlobalLinksList: React.FC = () => {
   const { show, edit } = useNavigation();
+  const [searchResults, setSearchResults] = React.useState([]);
   const { tableQueryResult } = useTable({
     metaData: {
       fields: globalLniks,
@@ -25,18 +27,25 @@ export const GlobalLinksList: React.FC = () => {
       pageHeaderProps={{
         extra: (
           <div style={{ display: "flex", flexDirection: "row" }}>
-            {/* <Search
-              path="comment"
+            <Search
+              path="globalLink"
               setSearchResults={setSearchResults}
               searchResults={searchResults}
-            /> */}
-            <CreateButton>Create Global Link</CreateButton>
+              data={tableQueryResult.data?.data || []}
+            />
+            <CreateButton style={{ marginLeft: 5 }}>
+              Create Global Link
+            </CreateButton>
           </div>
         ),
       }}
     >
       <Table
-        dataSource={tableQueryResult.data?.data}
+        dataSource={
+          searchResults?.length > 0
+            ? searchResults
+            : tableQueryResult.data?.data
+        }
         rowKey="id"
         style={{ cursor: "pointer" }}
         onRow={(record) => {
@@ -64,6 +73,12 @@ export const GlobalLinksList: React.FC = () => {
         />
 
         <Table.Column
+          dataIndex="placeholder"
+          title={"Place Holder"}
+          render={(value) => <TextField value={value} />}
+        />
+
+        <Table.Column
           dataIndex={"deleted"}
           title={"Deleted"}
           align={"center"}
@@ -71,7 +86,7 @@ export const GlobalLinksList: React.FC = () => {
         />
 
         <Table.Column<any>
-          title={"Actoins"}
+          title={"Actions"}
           dataIndex="actions"
           align="center"
           render={(_text, record): any => {

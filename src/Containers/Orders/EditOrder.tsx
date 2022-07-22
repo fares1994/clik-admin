@@ -115,6 +115,8 @@ export const EditOrder: React.FC<IResourceComponentsProps> = () => {
     }
   }, [record, setFieldValue, params?.id]);
 
+  if (!values?.order_status) return <></>;
+
   return (
     <Edit
       saveButtonProps={buttonProps}

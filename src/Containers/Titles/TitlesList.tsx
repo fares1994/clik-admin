@@ -10,9 +10,11 @@ import { useNavigation, useTable } from "@pankod/refine-core";
 import { titles } from "Containers/QueryReturns";
 import { Actions } from "Components/ActionsButtons";
 import { UpdateRecordAction } from "../Actions/ConfigsActions";
+import { Search } from "Components/Search";
 
 export const TitlesList: React.FC = () => {
   const { show, edit } = useNavigation();
+  const [searchResults, setSearchResults] = React.useState([]);
   const { tableQueryResult } = useTable({
     metaData: { fields: titles },
   });
@@ -23,18 +25,23 @@ export const TitlesList: React.FC = () => {
       pageHeaderProps={{
         extra: (
           <div style={{ display: "flex", flexDirection: "row" }}>
-            {/* <Search
-              path="comment"
+            <Search
+              path="title"
               setSearchResults={setSearchResults}
               searchResults={searchResults}
-            /> */}
-            <CreateButton>Create Title</CreateButton>
+              data={tableQueryResult.data?.data || []}
+            />
+            <CreateButton style={{ marginLeft: 5 }}>Create Title</CreateButton>
           </div>
         ),
       }}
     >
       <Table
-        dataSource={tableQueryResult.data?.data}
+        dataSource={
+          searchResults?.length > 0
+            ? searchResults
+            : tableQueryResult.data?.data
+        }
         rowKey="id"
         style={{ cursor: "pointer" }}
         onRow={(record) => {
@@ -70,7 +77,7 @@ export const TitlesList: React.FC = () => {
         />
 
         <Table.Column<any>
-          title={"Actoins"}
+          title={"Actions"}
           dataIndex="actions"
           align="center"
           render={(_text, record): any => {

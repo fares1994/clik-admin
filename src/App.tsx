@@ -34,6 +34,8 @@ import { TitlesList } from "Containers/Titles/TitlesList";
 import ShowTitle from "Containers/Titles/ShowTitle";
 import { EditTitle } from "Containers/Titles/EditTitle";
 import { CreateTitle } from "Containers/Titles/CreateTitle";
+import { CreateAdmin } from "Containers/Admin/CreateAdmin";
+import { EditAdmin } from "Containers/Admin/EditAdmin";
 
 export const API_URL = "https://clikstaging.herokuapp.com/graphql";
 export const UPLOAD_URI = `https://clikstaging.herokuapp.com/uploads/public`;
@@ -78,8 +80,9 @@ function App() {
           name: "admins",
           options: { label: "Admins" },
           list: AdminsList,
+          create: CreateAdmin,
           // show: ShowUsers,
-          // edit: EditUser,
+          edit: EditAdmin,
           icon: <RiAdminFill size={20} />,
         },
         {
@@ -125,6 +128,13 @@ function App() {
           create: CreateTitle,
           icon: <MdOutlineTitle size={20} />,
         },
+        // {
+        //   name: "findUserContacts",
+        //   options: { label: "Contacts" },
+        //   list: ContactsList,
+        //   show: ShowTitle,
+        //   icon: <MdContactPage size={20} />,
+        // },
       ]}
       Layout={Layout}
       LoginPage={LoginPage}

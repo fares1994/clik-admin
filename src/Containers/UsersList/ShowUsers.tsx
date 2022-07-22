@@ -17,10 +17,11 @@ import {
   Typography,
 } from "@pankod/refine-antd";
 import styled from "styled-components";
-import { account } from "Containers/QueryReturns";
+import { account, contacts } from "Containers/QueryReturns";
 import dayjs from "dayjs";
 import { useParams } from "react-router-dom";
 import {
+  GetListAction,
   showRecord,
   UpdateRecordAction,
 } from "Containers/Actions/ConfigsActions";
@@ -37,13 +38,26 @@ function ShowUsers() {
   const { edit } = useNavigation();
   const screens = useBreakpoint();
   const params = useParams();
-  const [record, setRecord] = useState<any>();
+  const [record, setRecord] = useState<any>([]);
+  const [contactsList, setContacts] = useState<any>();
   const [refresh, setRefresh] = useState<boolean>(true);
   const handleRefetch = () => setRefresh(true);
 
   useEffect(() => {
     if (refresh && params?.id) {
       showRecord("findUserAuth", params?.id, account, setRecord, setRefresh);
+      GetListAction(
+        "findUserContactsById",
+        {
+          userId: {
+            value: params?.id,
+            type: "String",
+            required: true,
+          },
+        },
+        contacts,
+        setContacts
+      );
     }
   }, [refresh, params?.id]);
 
@@ -128,9 +142,13 @@ function ShowUsers() {
                     <Text>{"Users"}</Text>
                   </ListButton>
                   <Actions
-                    name_ar="الوجبة"
+                    name_ar="user"
                     deleteRecord
+                    edit
                     record={record}
+                    onClickEdit={() =>
+                      record?.id && edit("findUsersAuth", record?.id)
+                    }
                     onClickDelete={() =>
                       UpdateRecordAction(
                         "updateUser",
@@ -142,9 +160,6 @@ function ShowUsers() {
                         },
                         handleRefetch
                       )
-                    }
-                    onClickEdit={() =>
-                      record?.id && edit("findUsersAuth", record?.id)
                     }
                   />
                 </Space>
@@ -165,13 +180,25 @@ function ShowUsers() {
                 <Title level={5}>{"Email"}</Title>
                 <Text>{record?.email}</Text>
 
+                {record?.coverImage && (
+                  <div style={{ margin: "7px 0px" }}>
+                    <Title level={5}>{"Cover Image"}</Title>
+                    <a
+                      href={VIEW_UPLOAD_URI + record?.coverImage?._id}
+                      target="_blank"
+                      rel="noreferrer"
+                    >
+                      {"Image"}
+                    </a>
+                  </div>
+                )}
                 <Title level={5}>{"Country"}</Title>
                 <Text>{record?.country}</Text>
-
-                <Title level={5}>{"City"}</Title>
-                <Text>{record?.city}</Text>
               </Break>
               <Break breakPoint={!!screens.md}>
+                <Title level={5}>{"City"}</Title>
+                <Text>{record?.city}</Text>
+
                 <Title level={5}>{"Gender"}</Title>
                 <Text>{record?.gender}</Text>
 
@@ -252,7 +279,7 @@ function ShowUsers() {
               />
 
               <Table.Column<any>
-                title={"Actoins"}
+                title={"Actions"}
                 dataIndex="actions"
                 align="center"
                 render={(_text, record): any => {
@@ -308,7 +335,7 @@ function ShowUsers() {
               />
 
               <Table.Column<any>
-                title={"Actoins"}
+                title={"Actions"}
                 dataIndex="actions"
                 align="center"
                 render={(_text, record): any => {
@@ -322,6 +349,50 @@ function ShowUsers() {
                     </a>
                   );
                 }}
+              />
+            </Table>
+          </List>
+        </>
+      )}
+
+      {(contactsList?.contacts || [])?.length > 0 && (
+        <>
+          <div style={{ marginTop: 20 }} />
+
+          <List
+            title={`${"Contacts"}`}
+            pageHeaderProps={{
+              extra: (
+                <div style={{ display: "flex", flexDirection: "row" }}></div>
+              ),
+            }}
+          >
+            <Table dataSource={contactsList?.contacts} rowKey="id">
+              <Table.Column
+                dataIndex="_id"
+                title={"ID"}
+                render={(value) => <TextField value={value} />}
+              />
+              <Table.Column
+                dataIndex="name"
+                title={"Name"}
+                render={(value) => <TextField value={value} />}
+              />
+              <Table.Column
+                dataIndex="username"
+                title={"Username"}
+                render={(value) => <TextField value={value} />}
+              />
+              <Table.Column
+                dataIndex={"email"}
+                title={"Email"}
+                render={(value) => <TextField value={value} />}
+              />
+
+              <Table.Column
+                dataIndex={"country"}
+                title={"Country"}
+                render={(value) => <TextField value={value} />}
               />
             </Table>
           </List>

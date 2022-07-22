@@ -1,11 +1,13 @@
-import React from "react";
+import React, { useState } from "react";
 import { List, Table, TextField } from "@pankod/refine-antd";
 import { useNavigation, useTable } from "@pankod/refine-core";
 import { account } from "Containers/QueryReturns";
 import { Actions } from "Components/ActionsButtons";
+import { Search } from "Components/Search";
 
 export const UsersList: React.FC = () => {
   const { show, edit } = useNavigation();
+  const [searchResults, setSearchResults] = useState([]);
   const { tableQueryResult } = useTable({
     metaData: {
       fields: account,
@@ -18,17 +20,22 @@ export const UsersList: React.FC = () => {
       pageHeaderProps={{
         extra: (
           <div style={{ display: "flex", flexDirection: "row" }}>
-            {/* <Search
-              path="comment"
+            <Search
+              path="user"
               setSearchResults={setSearchResults}
               searchResults={searchResults}
-            /> */}
+              data={tableQueryResult.data?.data || []}
+            />
           </div>
         ),
       }}
     >
       <Table
-        dataSource={tableQueryResult.data?.data}
+        dataSource={
+          searchResults?.length > 0
+            ? searchResults
+            : tableQueryResult.data?.data
+        }
         rowKey="id"
         style={{ cursor: "pointer" }}
         onRow={(record) => {
@@ -67,7 +74,7 @@ export const UsersList: React.FC = () => {
           render={(value) => <TextField value={value || "No Data"} />}
         />
         <Table.Column<any>
-          title={"Actoins"}
+          title={"Actions"}
           dataIndex="actions"
           align="center"
           render={(_text, record): any => {
