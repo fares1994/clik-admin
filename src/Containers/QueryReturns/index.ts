@@ -133,3 +133,5 @@ export const globalLniks = [
   "updated_at",
   "deleted",
 ];
+
+export const titles = ["_id", "title", "category", "updated_at", "deleted"];

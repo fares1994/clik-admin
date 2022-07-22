@@ -18,7 +18,7 @@ import { OrderesList } from "Containers/Orders/OrdersListing";
 import ShowOrder from "Containers/Orders/ShowOrder";
 import { BiReceipt } from "react-icons/bi";
 import { ProductsList } from "Containers/Products/ProductsList";
-import { MdProductionQuantityLimits } from "react-icons/md";
+import { MdProductionQuantityLimits, MdOutlineTitle } from "react-icons/md";
 import ShowProduct from "Containers/Products/ShowProduct";
 import { EditOrder } from "Containers/Orders/EditOrder";
 import { EditProduct } from "Containers/Products/EditProduct";
@@ -30,6 +30,10 @@ import { GlobalLinksList } from "Containers/GlobalLinks/GlobalLinksList";
 import ShowGlobalLink from "Containers/GlobalLinks/ShowGlobalLink";
 import { EditGlobalLink } from "Containers/GlobalLinks/EditGlobalLink";
 import { CreateGlobalLink } from "Containers/GlobalLinks/CreateGlobalLink";
+import { TitlesList } from "Containers/Titles/TitlesList";
+import ShowTitle from "Containers/Titles/ShowTitle";
+import { EditTitle } from "Containers/Titles/EditTitle";
+import { CreateTitle } from "Containers/Titles/CreateTitle";
 
 export const API_URL = "https://clikstaging.herokuapp.com/graphql";
 export const UPLOAD_URI = `https://clikstaging.herokuapp.com/uploads/public`;
@@ -111,6 +115,15 @@ function App() {
           edit: EditGlobalLink,
           create: CreateGlobalLink,
           icon: <AiOutlineLink size={20} />,
+        },
+        {
+          name: "findTitles",
+          options: { label: "Titles" },
+          list: TitlesList,
+          show: ShowTitle,
+          edit: EditTitle,
+          create: CreateTitle,
+          icon: <MdOutlineTitle size={20} />,
         },
       ]}
       Layout={Layout}
