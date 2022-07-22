@@ -92,7 +92,6 @@ export const EditGlobalLink: React.FC<IResourceComponentsProps> = () => {
       if (submittedValues.image) {
         inputs.updateGlobalLinkInput.value.image = submittedValues.image;
       }
-      console.log(inputs);
 
       UpdateRecordAction("updateGlobalLink", inputs, handleRefetch);
     },

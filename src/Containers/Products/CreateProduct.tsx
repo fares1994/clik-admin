@@ -11,7 +11,7 @@ import {
 } from "@pankod/refine-antd";
 import { CreateRecordAction } from "Containers/Actions/ConfigsActions";
 import { useFormik } from "formik";
-import { UPLOAD_URI, VIEW_UPLOAD_URI } from "App";
+import { VIEW_UPLOAD_URI } from "App";
 const { Text } = Typography;
 
 interface Inputs {
@@ -65,12 +65,8 @@ export const CreateProduct: React.FC<IResourceComponentsProps> = () => {
         });
         inputs.createProductInput.value.choices = arr;
       }
-      console.log(inputs);
 
-      // CreateRecordAction(
-      //     'createProduct',
-      //     inputs,
-      // )
+      CreateRecordAction("createProduct", inputs);
     },
   });
 
