@@ -1,5 +1,5 @@
 import { IResourceComponentsProps } from "@pankod/refine-core";
-import React from "react";
+import React, { useState } from "react";
 import {
   Form,
   Input,
@@ -8,6 +8,7 @@ import {
   ShowButton,
   Create,
   Upload,
+  notification,
 } from "@pankod/refine-antd";
 import { CreateRecordAction } from "Containers/Actions/ConfigsActions";
 import { useFormik } from "formik";
@@ -28,13 +29,18 @@ interface Inputs {
 }
 
 export const CreateProduct: React.FC<IResourceComponentsProps> = () => {
-  const { values, handleChange, setFieldValue, handleSubmit } = useFormik({
+  const [newImage, setNewImage] = useState<{
+    image: string;
+    colorsHex: string;
+  }>({
+    colorsHex: "",
+    image: "",
+  });
+  const { values, handleChange, handleSubmit } = useFormik({
     initialValues: {
       name: "",
       price: "",
       description: "",
-      image: "",
-      colorsHex: "",
       choices: [],
     },
     onSubmit: async (submittedValues) => {
@@ -57,13 +63,18 @@ export const CreateProduct: React.FC<IResourceComponentsProps> = () => {
           submittedValues.description;
       }
 
-      if (submittedValues.colorsHex && submittedValues.image) {
-        const arr = [];
-        arr.push({
-          colorsHex: submittedValues.colorsHex,
-          image: submittedValues.image,
-        });
+      if (newImage.image && newImage.colorsHex) {
+        const arr: any = [];
+        arr.push(newImage);
         inputs.createProductInput.value.choices = arr;
+      }
+      if (
+        (newImage.image && !newImage.colorsHex) ||
+        (!newImage.image && newImage.colorsHex)
+      ) {
+        return notification.info({
+          message: "You must add a color and image",
+        });
       }
 
       CreateRecordAction("createProduct", inputs);
@@ -111,8 +122,13 @@ export const CreateProduct: React.FC<IResourceComponentsProps> = () => {
         <Form.Item label="Color Hex">
           <Input
             name="colorsHex"
-            onChange={handleChange}
-            value={values.colorsHex}
+            onChange={(val) =>
+              setNewImage({
+                image: newImage.image,
+                colorsHex: val.target.value,
+              })
+            }
+            placeholder={"example: #fff"}
           />
         </Form.Item>
 
@@ -123,7 +139,10 @@ export const CreateProduct: React.FC<IResourceComponentsProps> = () => {
             listType="picture"
             maxCount={1}
             onChange={(file) => {
-              setFieldValue("image", file?.file?.response?.id);
+              setNewImage({
+                image: file?.file?.response?._id,
+                colorsHex: newImage.colorsHex,
+              });
             }}
           >
             Upload Image

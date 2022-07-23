@@ -22,6 +22,7 @@ interface Inputs {
       title?: string;
       placeholder?: string;
       redirectionType?: string;
+      image?: string;
     };
     required: boolean;
     type: string;
@@ -59,6 +60,10 @@ export const CreateGlobalLink: React.FC<IResourceComponentsProps> = () => {
       if (submittedValues.placeholder) {
         inputs.createGlobalLinkInput.value.placeholder =
           submittedValues.placeholder;
+      }
+
+      if (submittedValues.image) {
+        inputs.createGlobalLinkInput.value.image = submittedValues.image;
       }
 
       CreateRecordAction("createGlobalLink", inputs);
