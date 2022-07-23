@@ -17,7 +17,10 @@ import { order } from "Containers/QueryReturns";
 import dayjs from "dayjs";
 import { useParams } from "react-router-dom";
 import { Actions } from "Components/ActionsButtons";
-import { removeRecord, showRecord } from "Containers/Actions/ConfigsActions";
+import {
+  showRecord,
+  UpdateRecordAction,
+} from "Containers/Actions/ConfigsActions";
 import { useNavigation } from "@pankod/refine-core";
 import ListModal from "Components/ListModal";
 
@@ -67,7 +70,20 @@ function ShowOrder() {
                   record?._id && edit("findAllOrders", record?._id)
                 }
                 onClickDelete={() =>
-                  removeRecord("removeOrder-custom", record?.id, handleRefetch)
+                  UpdateRecordAction(
+                    "updateOrder",
+                    {
+                      updateOrderInput: {
+                        value: {
+                          id: record?._id,
+                          deleted: !record?.deleted,
+                        },
+                        required: true,
+                        type: "UpdateOrderInput",
+                      },
+                    },
+                    handleRefetch
+                  )
                 }
               />
             </Space>
@@ -164,6 +180,7 @@ function ShowOrder() {
           <Table.Column
             dataIndex={["product", "name"]}
             title={"Name"}
+            width={10}
             render={(value) => <TextField value={value} />}
           />
           <Table.Column

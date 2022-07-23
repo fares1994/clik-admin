@@ -7,6 +7,7 @@ import {
   ListButton,
   Typography,
   ShowButton,
+  Spin,
 } from "@pankod/refine-antd";
 import { useParams } from "react-router-dom";
 import { admins } from "Containers/QueryReturns";
@@ -92,7 +93,7 @@ export const EditAdmin: React.FC<IResourceComponentsProps> = () => {
     }
   }, [record, setFieldValue]);
 
-  if (!values?.email) return <></>;
+  if (!values?.email) return <Spin className="spinner" size={"large"} />;
 
   return (
     <Edit

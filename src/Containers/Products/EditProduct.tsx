@@ -160,21 +160,20 @@ export const EditProduct: React.FC<IResourceComponentsProps> = () => {
             value={values.colorsHex}
           />
         </Form.Item>
-
-        <Form.Item name={["choices", "image"]} noStyle>
-          <Upload.Dragger
-            name="file"
-            action={UPLOAD_URI}
-            listType="picture"
-            maxCount={1}
-            onChange={(file) => {
-              setFieldValue("image", file?.file?.response?.id);
-            }}
-          >
-            Upload Image
-          </Upload.Dragger>
-        </Form.Item>
       </Form>
+      <Form.Item name={["choices", "image"]} noStyle>
+        <Upload.Dragger
+          name="image"
+          action={UPLOAD_URI}
+          listType="picture"
+          maxCount={1}
+          onChange={(file) => {
+            setFieldValue("image", file?.file?.response?.id);
+          }}
+        >
+          Upload Image
+        </Upload.Dragger>
+      </Form.Item>
     </Edit>
   );
 };

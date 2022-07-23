@@ -55,6 +55,7 @@ export const TitlesList: React.FC = () => {
         <Table.Column
           dataIndex="_id"
           title={"ID"}
+          width={10}
           render={(value) => <TextField value={value} />}
         />
         <Table.Column
@@ -65,16 +66,17 @@ export const TitlesList: React.FC = () => {
 
         <Table.Column
           dataIndex="category"
+          width={10}
           title={"Category"}
           render={(value) => <TextField value={value} />}
         />
 
-        <Table.Column
+        {/* <Table.Column
           dataIndex={"deleted"}
           title={"Deleted"}
           align={"center"}
           render={(value) => <BooleanField value={value} />}
-        />
+        /> */}
 
         <Table.Column<any>
           title={"Actions"}

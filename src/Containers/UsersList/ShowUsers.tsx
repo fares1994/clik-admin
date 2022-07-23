@@ -271,12 +271,12 @@ function ShowUsers() {
                 render={(value) => <TextField value={value} />}
               />
 
-              <Table.Column
+              {/* <Table.Column
                 dataIndex={["globalLink", "deleted"]}
                 title={"Deleted"}
                 align={"center"}
                 render={(value) => <BooleanField value={value} />}
-              />
+              /> */}
 
               <Table.Column<any>
                 title={"Actions"}
@@ -315,6 +315,7 @@ function ShowUsers() {
               <Table.Column
                 dataIndex="id"
                 title={"ID"}
+                width={10}
                 render={(value) => <TextField value={value} />}
               />
               <Table.Column
@@ -371,6 +372,7 @@ function ShowUsers() {
               <Table.Column
                 dataIndex="_id"
                 title={"ID"}
+                width={10}
                 render={(value) => <TextField value={value} />}
               />
               <Table.Column

@@ -8,6 +8,7 @@ import {
   Typography,
   ShowButton,
   Select,
+  Spin,
 } from "@pankod/refine-antd";
 import { useParams } from "react-router-dom";
 import { titles } from "Containers/QueryReturns";
@@ -89,7 +90,7 @@ export const EditTitle: React.FC<IResourceComponentsProps> = () => {
     }
   }, [record, setFieldValue]);
 
-  if (!values?.category) return <></>;
+  if (!values?.category) return <Spin className="spinner" size={"large"} />;
 
   return (
     <Edit

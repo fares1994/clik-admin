@@ -59,6 +59,7 @@ export const ProductsList: React.FC = () => {
         <Table.Column
           dataIndex="_id"
           title={"ID"}
+          width={10}
           render={(value) => <TextField value={value} />}
         />
         <Table.Column
@@ -72,12 +73,12 @@ export const ProductsList: React.FC = () => {
           render={(value) => <TextField value={value} />}
         />
 
-        <Table.Column
+        {/* <Table.Column
           dataIndex={"deleted"}
           title={"Deleted"}
           align={"center"}
           render={(value) => <BooleanField value={value} />}
-        />
+        /> */}
 
         <Table.Column<any>
           title={"Actions"}
