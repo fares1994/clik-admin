@@ -8,6 +8,7 @@ import {
   ListButton,
   Typography,
   ShowButton,
+  Spin,
 } from "@pankod/refine-antd";
 import { useParams } from "react-router-dom";
 import { order } from "Containers/QueryReturns";
@@ -115,7 +116,7 @@ export const EditOrder: React.FC<IResourceComponentsProps> = () => {
     }
   }, [record, setFieldValue, params?.id]);
 
-  if (!values?.order_status) return <></>;
+  if (!values?.order_status) return <Spin className="spinner" size={"large"} />;
 
   return (
     <Edit

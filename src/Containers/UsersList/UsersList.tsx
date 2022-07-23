@@ -49,6 +49,7 @@ export const UsersList: React.FC = () => {
         <Table.Column
           dataIndex="id"
           title={"ID"}
+          width={10}
           render={(value) => <TextField value={value} />}
         />
 

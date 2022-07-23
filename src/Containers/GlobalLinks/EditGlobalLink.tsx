@@ -9,6 +9,7 @@ import {
   ShowButton,
   Upload,
   Select,
+  Spin,
 } from "@pankod/refine-antd";
 import { useParams } from "react-router-dom";
 import { globalLniks } from "Containers/QueryReturns";
@@ -114,7 +115,7 @@ export const EditGlobalLink: React.FC<IResourceComponentsProps> = () => {
     }
   }, [record, setFieldValue]);
 
-  if (!values?.type) return <></>;
+  if (!values?.type) return <Spin className="spinner" size={"large"} />;
 
   return (
     <Edit
@@ -189,16 +190,13 @@ export const EditGlobalLink: React.FC<IResourceComponentsProps> = () => {
 
         <Form.Item name={"image"} noStyle>
           <Upload.Dragger
-            name="file"
+            name="image"
             action={UPLOAD_URI}
             listType="picture"
             maxCount={1}
             onChange={(file) => {
               setFieldValue("image", file?.file?.response?.id);
             }}
-            //   headers={{
-            //     authorization: `Bearer ${getAccount?.token}`,
-            //   }}
           >
             Upload Image
           </Upload.Dragger>

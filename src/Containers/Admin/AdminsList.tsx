@@ -16,8 +16,6 @@ export const AdminsList: React.FC = () => {
     },
   });
 
-  console.log();
-
   return (
     <List
       title={`${"Admins"}`}
@@ -54,6 +52,7 @@ export const AdminsList: React.FC = () => {
         <Table.Column
           dataIndex="id"
           title={"ID"}
+          width={10}
           render={(value) => <TextField value={value} />}
         />
         <Table.Column

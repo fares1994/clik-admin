@@ -1,6 +1,6 @@
-import { Dropdown, Icons, Menu, Tooltip } from '@pankod/refine-antd';
-import React from 'react';
-import { FcInfo } from 'react-icons/fc';
+import { Dropdown, Icons, Menu, Tooltip } from "@pankod/refine-antd";
+import React from "react";
+import { FcInfo } from "react-icons/fc";
 type ActionProps = {
   type?: string;
   edit?: boolean;
@@ -44,21 +44,21 @@ export const Actions: React.FC<ActionProps> = ({
       mode="vertical"
       onClick={({ domEvent }) => domEvent.stopPropagation()}
     >
-      {(type === 'approveReject' || type === 'specialty') && (
+      {(type === "approveReject" || type === "specialty") && (
         <>
           {!showApproveButton && (
             <Menu.Item
               key="accept"
               style={{
                 fontSize: 15,
-                display: 'flex',
-                alignItems: 'center',
+                display: "flex",
+                alignItems: "center",
                 fontWeight: 500,
               }}
               icon={
                 <Icons.CheckCircleOutlined
                   style={{
-                    color: '#52c41a',
+                    color: "#52c41a",
                     fontSize: 17,
                     fontWeight: 500,
                   }}
@@ -69,19 +69,19 @@ export const Actions: React.FC<ActionProps> = ({
               {`اعتماد ${name_ar}`}
             </Menu.Item>
           )}
-          {type !== 'specialty' && !showRejectButton && (
+          {type !== "specialty" && !showRejectButton && (
             <Menu.Item
               key="reject"
               style={{
                 fontSize: 15,
-                display: 'flex',
-                alignItems: 'center',
+                display: "flex",
+                alignItems: "center",
                 fontWeight: 500,
               }}
               icon={
                 <Icons.CloseCircleOutlined
                   style={{
-                    color: '#EE2A1E',
+                    color: "#EE2A1E",
                     fontSize: 17,
                   }}
                 />
@@ -98,46 +98,37 @@ export const Actions: React.FC<ActionProps> = ({
           key="switch"
           style={{
             fontSize: 15,
-            display: 'flex',
-            alignItems: 'center',
+            display: "flex",
+            alignItems: "center",
             fontWeight: 500,
           }}
           onClick={onClickVerifyAccount}
           icon={
             <Icons.CheckCircleOutlined
               style={{
-                color: '#52c41a',
+                color: "#52c41a",
                 fontSize: 17,
                 fontWeight: 500,
               }}
             />
           }
         >
-          {'تفعيل الحساب'}
+          {"تفعيل الحساب"}
         </Menu.Item>
       )}
-      {(type === 'delete' || deleteRecord) && (
+      {(type === "delete" || deleteRecord) && (
         <Menu.Item
           key="delete"
           style={{
             fontSize: 15,
-            display: 'flex',
-            alignItems: 'center',
+            display: "flex",
+            alignItems: "center",
             fontWeight: 500,
           }}
-          icon={
-            <FcInfo
-              color={'#EE2A1E'}
-              size={20}
-              style={{
-                marginRight: 0,
-                marginLeft: 8,
-              }}
-            />
-          }
+          icon={<FcInfo color={"#EE2A1E"} size={20} />}
           onClick={onClickDelete}
         >
-          {record?.is_deleted ? 'Retrieve' : 'Delete'}
+          {record?.is_deleted ? "Retrieve" : "Delete"}
         </Menu.Item>
       )}
       {edit && (
@@ -145,14 +136,14 @@ export const Actions: React.FC<ActionProps> = ({
           key="edit"
           style={{
             fontSize: 15,
-            display: 'flex',
-            alignItems: 'center',
+            display: "flex",
+            alignItems: "center",
             fontWeight: 500,
           }}
           onClick={onClickEdit}
           icon={<Icons.EditFilled style={{ fontSize: 16 }} />}
         >
-          {'Edit'}
+          {"Edit"}
         </Menu.Item>
       )}
       {role && (
@@ -160,14 +151,14 @@ export const Actions: React.FC<ActionProps> = ({
           key="role"
           style={{
             fontSize: 15,
-            display: 'flex',
-            alignItems: 'center',
+            display: "flex",
+            alignItems: "center",
             fontWeight: 500,
           }}
           onClick={onClickRole}
           icon={<Icons.EditFilled style={{ fontSize: 16 }} />}
         >
-          {'تعديل الدور'}
+          {"تعديل الدور"}
         </Menu.Item>
       )}
     </Menu>
@@ -175,15 +166,15 @@ export const Actions: React.FC<ActionProps> = ({
   return (
     <Tooltip
       placement="top"
-      title={<p style={{ marginBottom: -1 }}>{'More'}</p>}
+      title={<p style={{ marginBottom: -1 }}>{"More"}</p>}
       style={{ maxWidth: 20 }}
     >
-      <Dropdown overlay={moreMenu(record)} trigger={['click']}>
-        {type === 'specialty' ? (
+      <Dropdown overlay={moreMenu(record)} trigger={["click"]}>
+        {type === "specialty" ? (
           <button
             style={{
-              color: 'rgb(82, 146, 202)',
-              fontWeight: 'bold',
+              color: "rgb(82, 146, 202)",
+              fontWeight: "bold",
             }}
             onClick={(e) => e.stopPropagation()}
             className="transparent-button"

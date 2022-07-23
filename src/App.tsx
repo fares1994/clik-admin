@@ -36,6 +36,7 @@ import { EditTitle } from "Containers/Titles/EditTitle";
 import { CreateTitle } from "Containers/Titles/CreateTitle";
 import { CreateAdmin } from "Containers/Admin/CreateAdmin";
 import { EditAdmin } from "Containers/Admin/EditAdmin";
+import { CustomHeader } from "Components/Header";
 
 export const API_URL = "https://clikstaging.herokuapp.com/graphql";
 export const UPLOAD_URI = `https://clikstaging.herokuapp.com/uploads/public`;
@@ -69,6 +70,7 @@ function App() {
       }}
       dataProvider={gqlDataProvider}
       authProvider={authProvider}
+      Header={CustomHeader}
       resources={[
         // {
         //   name: "dashboard",

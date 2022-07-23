@@ -1,9 +1,9 @@
 import React from "react";
-import { List, Table, TextField, BooleanField } from "@pankod/refine-antd";
+import { List, Table, TextField } from "@pankod/refine-antd";
 import { useNavigation, useTable } from "@pankod/refine-core";
 import { order } from "Containers/QueryReturns";
 import { Actions } from "Components/ActionsButtons";
-import { removeRecord } from "Containers/Actions/ConfigsActions";
+import { UpdateRecordAction } from "Containers/Actions/ConfigsActions";
 import { Search } from "Components/Search";
 
 export const OrderesList: React.FC = () => {
@@ -49,52 +49,65 @@ export const OrderesList: React.FC = () => {
       >
         <Table.Column
           dataIndex="_id"
+          width={50}
           title={"ID"}
-          render={(value) => <TextField value={value} />}
+          render={(value) => (
+            <div style={{ width: 100 }}>
+              <TextField value={value} />
+            </div>
+          )}
         />
         <Table.Column
           dataIndex="name"
           title={"Name"}
+          width={10}
           render={(value) => <TextField value={value} />}
         />
         <Table.Column
           dataIndex="email"
+          width={10}
           title={"Email"}
           render={(value) => <TextField value={value} />}
         />
         <Table.Column
           dataIndex={"driver_name"}
           title={"Driver"}
+          width={10}
           render={(value) => <TextField value={value || "No Data"} />}
         />
         <Table.Column
           dataIndex={"location"}
           title={"Location"}
+          width={10}
           render={(value) => <TextField value={value} />}
         />
         <Table.Column
           dataIndex={"phonenumber"}
           title={"Phone Number"}
+          width={10}
           align={"center"}
           render={(value) => <TextField value={value || "No Data"} />}
         />
         <Table.Column
           dataIndex={"order_status"}
           title={"Status"}
+          width={10}
           align={"center"}
           render={(value) => <TextField value={value || "No Data"} />}
         />
 
-        <Table.Column
+        {/* <Table.Column
           dataIndex={"deleted"}
           title={"Deleted"}
+          width={10}
           align={"center"}
           render={(value) => <BooleanField value={value} />}
-        />
+        /> */}
 
         <Table.Column<any>
           title={"Actions"}
           dataIndex="actions"
+          width={10}
           align="center"
           render={(_text, record): any => {
             return (
@@ -107,9 +120,18 @@ export const OrderesList: React.FC = () => {
                   record?._id && edit("findAllOrders", record?._id)
                 }
                 onClickDelete={() =>
-                  removeRecord(
-                    "removeOrder-custom",
-                    record?.id,
+                  UpdateRecordAction(
+                    "updateOrder",
+                    {
+                      updateOrderInput: {
+                        value: {
+                          id: record?._id,
+                          deleted: !record?.deleted,
+                        },
+                        required: true,
+                        type: "UpdateOrderInput",
+                      },
+                    },
                     tableQueryResult?.refetch
                   )
                 }

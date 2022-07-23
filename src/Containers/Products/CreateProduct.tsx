@@ -118,7 +118,7 @@ export const CreateProduct: React.FC<IResourceComponentsProps> = () => {
 
         <Form.Item name="icon" noStyle>
           <Upload.Dragger
-            name="file"
+            name="image"
             action={VIEW_UPLOAD_URI + "public"}
             listType="picture"
             maxCount={1}

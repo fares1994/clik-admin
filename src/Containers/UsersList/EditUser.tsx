@@ -9,6 +9,7 @@ import {
   ListButton,
   Typography,
   ShowButton,
+  Spin,
 } from "@pankod/refine-antd";
 import { account } from "Containers/QueryReturns";
 import {
@@ -112,7 +113,7 @@ export const EditUser: React.FC<IResourceComponentsProps> = () => {
     }
   }, [record, setFieldValue]);
 
-  if (!values?.gender) return <></>;
+  if (!values?.gender) return <Spin className="spinner" size={"large"} />;
 
   return (
     <Edit
@@ -148,6 +149,16 @@ export const EditUser: React.FC<IResourceComponentsProps> = () => {
             value={values.personalBio}
           />
         </Form.Item>
+        <Form.Item label="Gender" required>
+          <Select
+            defaultValue={record?.gender}
+            options={[
+              { label: "Male", value: "male" },
+              { label: "Female", value: "female" },
+            ]}
+            onChange={(val) => setFieldValue("gender", val)}
+          />
+        </Form.Item>
 
         <Form.Item label="TwitterId" required>
           <Input
@@ -162,17 +173,6 @@ export const EditUser: React.FC<IResourceComponentsProps> = () => {
             name="instagramId"
             onChange={handleChange}
             value={values.instagramId}
-          />
-        </Form.Item>
-
-        <Form.Item label="Gender" required>
-          <Select
-            defaultValue={record?.gender}
-            options={[
-              { label: "Male", value: "male" },
-              { label: "Female", value: "female" },
-            ]}
-            onChange={(val) => setFieldValue("gender", val)}
           />
         </Form.Item>
       </Form>
