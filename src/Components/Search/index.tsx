@@ -49,7 +49,7 @@ export const Search = ({
             </>
           )}
 
-          {path.includes("product") && (
+          {path === "product" && (
             <>
               <Option value="_id">ID</Option>
               <Option value="name">Name</Option>
@@ -69,6 +69,13 @@ export const Search = ({
             <>
               <Option value="_id">ID</Option>
               <Option value="title">Title</Option>
+            </>
+          )}
+
+          {path.includes("productId") && (
+            <>
+              <Option value="_id">ID</Option>
+              <Option value="productId">Product ID</Option>
             </>
           )}
         </Select>
