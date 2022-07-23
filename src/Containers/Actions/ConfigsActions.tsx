@@ -224,3 +224,38 @@ export const SearchAction = async (
     });
   setRecord(filtered);
 };
+
+export const CreateMassRecordsAction = async (
+  resource: string,
+  variables: any,
+  refetch?: () => void,
+  resetForm?: () => void
+) => {
+  const token = JSON.parse(
+    (await localStorage.getItem("account")) || ""
+  )?.token;
+  let clientList = new GraphQLClient(API_URL, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
+  const { query, variables: gqlVariables } = gql.mutation({
+    operation: resource,
+    variables,
+  });
+  await clientList
+    .request(query, gqlVariables)
+    .then(() => {
+      refetch && refetch();
+      resetForm && resetForm();
+      return notification.success({
+        message: "Success",
+        description: "Successfully Created",
+      });
+    })
+    .catch((error) => {
+      return notification.error({
+        message: error?.response?.errors[0]?.message,
+      });
+    });
+};

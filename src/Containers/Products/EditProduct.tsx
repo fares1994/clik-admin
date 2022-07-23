@@ -118,8 +118,6 @@ export const EditProduct: React.FC<IResourceComponentsProps> = () => {
       //   //   submittedValues.choices.concat(arr);
       // }
 
-      console.log(inputs);
-
       UpdateRecordAction("updateProduct", inputs, handleRefetch);
     },
   });

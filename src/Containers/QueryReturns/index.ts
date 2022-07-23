@@ -164,3 +164,15 @@ export const contacts = [
     contacts: accountContacts,
   },
 ];
+
+export const productsId = [
+  "_id",
+  "updated_at",
+  "created_at",
+  "deleted",
+  "productId",
+  "data",
+  {
+    user: accountContacts,
+  },
+];

@@ -16,7 +16,7 @@ import { EditUser } from "Containers/UsersList/EditUser";
 import { FiUsers } from "react-icons/fi";
 import { OrderesList } from "Containers/Orders/OrdersListing";
 import ShowOrder from "Containers/Orders/ShowOrder";
-import { BiReceipt } from "react-icons/bi";
+import { BiReceipt, BiSitemap } from "react-icons/bi";
 import { ProductsList } from "Containers/Products/ProductsList";
 import { MdProductionQuantityLimits, MdOutlineTitle } from "react-icons/md";
 import ShowProduct from "Containers/Products/ShowProduct";
@@ -37,6 +37,8 @@ import { CreateTitle } from "Containers/Titles/CreateTitle";
 import { CreateAdmin } from "Containers/Admin/CreateAdmin";
 import { EditAdmin } from "Containers/Admin/EditAdmin";
 import { CustomHeader } from "Components/Header";
+import { ProductsIdList } from "Containers/ProdcutsID/ProductsIdList";
+import { CreateProductId } from "Containers/ProdcutsID/CreateProductId";
 
 export const API_URL = "https://clikstaging.herokuapp.com/graphql";
 export const UPLOAD_URI = `https://clikstaging.herokuapp.com/uploads/public`;
@@ -130,13 +132,13 @@ function App() {
           create: CreateTitle,
           icon: <MdOutlineTitle size={20} />,
         },
-        // {
-        //   name: "findUserContacts",
-        //   options: { label: "Contacts" },
-        //   list: ContactsList,
-        //   show: ShowTitle,
-        //   icon: <MdContactPage size={20} />,
-        // },
+        {
+          name: "productsIds",
+          options: { label: "Products ID" },
+          list: ProductsIdList,
+          create: CreateProductId,
+          icon: <BiSitemap size={20} />,
+        },
       ]}
       Layout={Layout}
       LoginPage={LoginPage}
