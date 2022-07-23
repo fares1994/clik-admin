@@ -10,6 +10,8 @@ import {
   Upload,
   Select,
   Spin,
+  Space,
+  Avatar,
 } from "@pankod/refine-antd";
 import { useParams } from "react-router-dom";
 import { globalLniks } from "Containers/QueryReturns";
@@ -18,7 +20,8 @@ import {
   UpdateRecordAction,
 } from "Containers/Actions/ConfigsActions";
 import { useFormik } from "formik";
-import { UPLOAD_URI } from "App";
+import { UPLOAD_URI, VIEW_UPLOAD_URI } from "App";
+import noPhoto from "../../Assets/Images/noPhoto.png";
 const { Text } = Typography;
 
 interface Inputs {
@@ -195,10 +198,24 @@ export const EditGlobalLink: React.FC<IResourceComponentsProps> = () => {
             listType="picture"
             maxCount={1}
             onChange={(file) => {
-              setFieldValue("image", file?.file?.response?.id);
+              setFieldValue("image", file?.file?.response?._id);
             }}
           >
-            Upload Image
+            <Space direction="vertical" size={2}>
+              <Avatar
+                style={{
+                  width: 80,
+                  height: 80,
+                  borderRadius: 5,
+                }}
+                src={
+                  record?.image?._id
+                    ? `${VIEW_UPLOAD_URI}${record?.image?._id}`
+                    : noPhoto
+                }
+                alt="Banner"
+              />
+            </Space>
           </Upload.Dragger>
         </Form.Item>
       </Form>
