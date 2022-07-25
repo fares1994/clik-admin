@@ -98,16 +98,13 @@ export const EditAdmin: React.FC<IResourceComponentsProps> = () => {
   return (
     <Edit
       saveButtonProps={buttonProps}
-      title={"Edit Title"}
+      title={"Edit Admin"}
       pageHeaderProps={{
         extra: (
           <>
             <ListButton>
-              <Text>{"Titles"}</Text>
+              <Text>{"Admins"}</Text>
             </ListButton>
-            <ShowButton>
-              <Text>{"Details"}</Text>
-            </ShowButton>
           </>
         ),
       }}
