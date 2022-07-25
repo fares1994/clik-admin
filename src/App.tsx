@@ -39,12 +39,14 @@ import { EditAdmin } from "Containers/Admin/EditAdmin";
 import { CustomHeader } from "Components/Header";
 import { ProductsIdList } from "Containers/ProdcutsID/ProductsIdList";
 import { CreateProductId } from "Containers/ProdcutsID/CreateProductId";
+import { useEffect, useState } from "react";
 
 export const API_URL = "https://clikstaging.herokuapp.com/graphql";
 export const UPLOAD_URI = `https://clikstaging.herokuapp.com/uploads/public`;
 export const VIEW_UPLOAD_URI = `https://clikstaging.herokuapp.com/uploads/`;
 
 function App() {
+  const [roles, setRoles] = useState<string>();
   let client = new GraphQLClient(API_URL, {
     headers: {
       Authorization: `Bearer $2b$10$c8HGKqzillqXZocLWuo/R.WYXs3sMdWBthCdN/UoqkDuUPMCw4TZa`,
@@ -52,6 +54,87 @@ function App() {
   });
 
   const gqlDataProvider = dataProvider(client);
+
+  const getCookie = async () => {
+    // @ts-ignore
+    const getRoles = await JSON.parse(localStorage.getItem("account"))?.role;
+    setRoles(getRoles);
+  };
+
+  useEffect(() => {
+    getCookie();
+  }, []);
+
+  let resources: any[] = [];
+
+  if (roles === "super_admin") {
+    resources = [
+      ...resources,
+      {
+        name: "admins",
+        options: { label: "Admins" },
+        list: AdminsList,
+        create: CreateAdmin,
+        // show: ShowUsers,
+        edit: EditAdmin,
+        icon: <RiAdminFill size={20} />,
+      },
+    ];
+  }
+
+  resources = [
+    ...resources,
+    {
+      name: "findUsersAuth",
+      options: { label: "Users" },
+      list: UsersList,
+      show: ShowUsers,
+      edit: EditUser,
+      icon: <FiUsers size={20} />,
+    },
+    {
+      name: "findAllOrders",
+      options: { label: "Orders" },
+      list: OrderesList,
+      show: ShowOrder,
+      edit: EditOrder,
+      icon: <BiReceipt size={20} />,
+    },
+    {
+      name: "findProducts",
+      options: { label: "Products" },
+      list: ProductsList,
+      show: ShowProduct,
+      edit: EditProduct,
+      create: CreateProduct,
+      icon: <MdProductionQuantityLimits size={20} />,
+    },
+    {
+      name: "findAllGlobalLinks",
+      options: { label: "Global Links" },
+      list: GlobalLinksList,
+      show: ShowGlobalLink,
+      edit: EditGlobalLink,
+      create: CreateGlobalLink,
+      icon: <AiOutlineLink size={20} />,
+    },
+    {
+      name: "findTitles",
+      options: { label: "Titles" },
+      list: TitlesList,
+      show: ShowTitle,
+      edit: EditTitle,
+      create: CreateTitle,
+      icon: <MdOutlineTitle size={20} />,
+    },
+    {
+      name: "productsIds",
+      options: { label: "Products ID" },
+      list: ProductsIdList,
+      create: CreateProductId,
+      icon: <BiSitemap size={20} />,
+    },
+  ];
 
   return (
     <Refine
@@ -73,73 +156,7 @@ function App() {
       dataProvider={gqlDataProvider}
       authProvider={authProvider}
       Header={CustomHeader}
-      resources={[
-        // {
-        //   name: "dashboard",
-        //   options: { label: "dashboard" },
-        //   list: Dashboard,
-        //   // icon: <BsBuilding size={20} />,
-        // },
-        {
-          name: "admins",
-          options: { label: "Admins" },
-          list: AdminsList,
-          create: CreateAdmin,
-          // show: ShowUsers,
-          edit: EditAdmin,
-          icon: <RiAdminFill size={20} />,
-        },
-        {
-          name: "findUsersAuth",
-          options: { label: "Users" },
-          list: UsersList,
-          show: ShowUsers,
-          edit: EditUser,
-          icon: <FiUsers size={20} />,
-        },
-        {
-          name: "findAllOrders",
-          options: { label: "Orders" },
-          list: OrderesList,
-          show: ShowOrder,
-          edit: EditOrder,
-          icon: <BiReceipt size={20} />,
-        },
-        {
-          name: "findProducts",
-          options: { label: "Products" },
-          list: ProductsList,
-          show: ShowProduct,
-          edit: EditProduct,
-          create: CreateProduct,
-          icon: <MdProductionQuantityLimits size={20} />,
-        },
-        {
-          name: "findAllGlobalLinks",
-          options: { label: "Global Links" },
-          list: GlobalLinksList,
-          show: ShowGlobalLink,
-          edit: EditGlobalLink,
-          create: CreateGlobalLink,
-          icon: <AiOutlineLink size={20} />,
-        },
-        {
-          name: "findTitles",
-          options: { label: "Titles" },
-          list: TitlesList,
-          show: ShowTitle,
-          edit: EditTitle,
-          create: CreateTitle,
-          icon: <MdOutlineTitle size={20} />,
-        },
-        {
-          name: "productsIds",
-          options: { label: "Products ID" },
-          list: ProductsIdList,
-          create: CreateProductId,
-          icon: <BiSitemap size={20} />,
-        },
-      ]}
+      resources={resources}
       Layout={Layout}
       LoginPage={LoginPage}
     />
