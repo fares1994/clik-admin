@@ -118,7 +118,7 @@ export const products = [
   },
 ];
 
-export const admins = ["id", "name", "email", "username", "role"];
+export const admins = ["id", "name", "email", "username", "role","deleted"];
 
 export const globalLniks = [
   "_id",

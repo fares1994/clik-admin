@@ -1,5 +1,11 @@
 import React from "react";
-import { CreateButton, List, Table, TextField } from "@pankod/refine-antd";
+import {
+  CreateButton,
+  List,
+  Table,
+  TextField,
+  BooleanField,
+} from "@pankod/refine-antd";
 import { useNavigation, useTable } from "@pankod/refine-core";
 import { admins } from "Containers/QueryReturns";
 import { Actions } from "Components/ActionsButtons";
@@ -75,6 +81,13 @@ export const AdminsList: React.FC = () => {
           title={"Role"}
           align={"center"}
           render={(value) => <TextField value={value || "No Data"} />}
+        />
+
+        <Table.Column
+          dataIndex={"deleted"}
+          title={"Deleted"}
+          align={"center"}
+          render={(value) => <BooleanField value={value} />}
         />
 
         <Table.Column<any>

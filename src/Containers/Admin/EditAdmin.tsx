@@ -6,7 +6,6 @@ import {
   Edit,
   ListButton,
   Typography,
-  ShowButton,
   Spin,
 } from "@pankod/refine-antd";
 import { useParams } from "react-router-dom";
@@ -26,6 +25,7 @@ interface Inputs {
       email?: string;
       name?: string;
       role?: string;
+      deleted?: boolean;
     };
     required: boolean;
     type: string;
@@ -51,6 +51,7 @@ export const EditAdmin: React.FC<IResourceComponentsProps> = () => {
       email: "",
       name: "",
       role: "",
+      deleted: false,
     },
     onSubmit: async (submittedValues) => {
       const inputs: Inputs = {
@@ -65,16 +66,18 @@ export const EditAdmin: React.FC<IResourceComponentsProps> = () => {
       // if (submittedValues.username) {
       //   inputs.updateAdminInput.value.username = submittedValues.username;
       // }
-      if (submittedValues.email) {
+      if (submittedValues.email !== record?.email) {
         inputs.updateAdminInput.value.email = submittedValues.email;
       }
       // if (submittedValues.role) {
       //   inputs.updateAdminInput.value.role = submittedValues.role;
       // }
-      if (submittedValues.name) {
+      if (submittedValues.name !== record?.name) {
         inputs.updateAdminInput.value.name = submittedValues.name;
       }
-
+      if (submittedValues.deleted !== record?.deleted) {
+        inputs.updateAdminInput.value.deleted = submittedValues.deleted;
+      }
       UpdateRecordAction("updateAdmin", inputs, handleRefetch);
     },
   });
@@ -84,12 +87,12 @@ export const EditAdmin: React.FC<IResourceComponentsProps> = () => {
     loading: refresh,
     onClick: () => handleSubmit(),
   };
-
   useEffect(() => {
     if (record) {
       setFieldValue("id", record?.id);
       setFieldValue("email", record?.email);
       setFieldValue("name", record?.name);
+      setFieldValue("deleted", record?.deleted);
     }
   }, [record, setFieldValue]);
 
@@ -124,6 +127,14 @@ export const EditAdmin: React.FC<IResourceComponentsProps> = () => {
             onChange={handleChange}
             value={values.email}
             placeholder={values.email}
+          />
+        </Form.Item>
+        <Form.Item label="Deleted">
+          <Input
+            name="deleted"
+            onClick={() => setFieldValue("deleted", false)}
+            value={values.deleted ? "reactivate" : "delete"}
+            type="button"
           />
         </Form.Item>
       </Form>
