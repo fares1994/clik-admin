@@ -69,6 +69,12 @@ export const UsersList: React.FC = () => {
           render={(value) => <TextField value={value} />}
         />
         <Table.Column
+          dataIndex={"title"}
+          title={"Title"}
+          align={"center"}
+          render={(value) => <TextField value={value?.title || "No Data"} />}
+        />
+        <Table.Column
           dataIndex={"country"}
           title={"Country"}
           align={"center"}
