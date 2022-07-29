@@ -152,11 +152,15 @@ function ShowUsers() {
                     }
                     onClickDelete={() =>
                       UpdateRecordAction(
-                        "updateUser",
+                        "updateUserById",
                         {
-                          updateGlobalLinkInput: {
-                            id: record?._id,
-                            deleted: !record?.deleted,
+                          updateUserByIdInput: {
+                            value: {
+                              userId: record?.id,
+                              deleted: !record?.deleted,
+                            },
+                            required: true,
+                            type: "UpdateUserInput",
                           },
                         },
                         handleRefetch
@@ -198,10 +202,10 @@ function ShowUsers() {
               </Break>
               <Break breakPoint={!!screens.md}>
                 <Title level={5}>{"City"}</Title>
-                <Text>{record?.city}</Text>
+                <Text>{record?.city || "No Data"}</Text>
 
                 <Title level={5}>{"Gender"}</Title>
-                <Text>{record?.gender}</Text>
+                <Text>{record?.gender || "No Data"}</Text>
 
                 <Title level={5}>{"Date Of Birth"}</Title>
                 <Text>{dayjs(record?.dob).format("YYYY-MM-DD")}</Text>
@@ -217,6 +221,9 @@ function ShowUsers() {
                 )}
               </Break>
               <Break breakPoint={!!screens.md}>
+                <Title level={5}>{"Deleted"}</Title>
+                <BooleanField value={record?.deleted} />
+
                 {record?.title && (
                   <>
                     <Title level={5}>{"Title"}</Title>

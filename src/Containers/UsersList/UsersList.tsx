@@ -3,8 +3,17 @@ import { useNavigation, useTable } from "@pankod/refine-core";
 import { account } from "Containers/QueryReturns";
 import { Actions } from "Components/ActionsButtons";
 import { Search } from "Components/Search";
-import { ExportButton, List, Table, TextField,BooleanField } from "@pankod/refine-antd";
-import { ExportList } from "Containers/Actions/ConfigsActions";
+import {
+  ExportButton,
+  List,
+  Table,
+  TextField,
+  BooleanField,
+} from "@pankod/refine-antd";
+import {
+  ExportList,
+  UpdateRecordAction,
+} from "Containers/Actions/ConfigsActions";
 
 export const UsersList: React.FC = () => {
   const { show, edit } = useNavigation();
@@ -86,7 +95,7 @@ export const UsersList: React.FC = () => {
           dataIndex={"deleted"}
           title={"Deleted"}
           align={"center"}
-          render={(value) => <BooleanField value={value?.deleted} />}
+          render={(value) => <BooleanField value={value} />}
         />
         <Table.Column
           dataIndex={"country"}
@@ -103,9 +112,26 @@ export const UsersList: React.FC = () => {
               <Actions
                 name_ar="User"
                 edit
+                deleteRecord
                 record={record}
                 onClickEdit={() =>
                   record?.id && edit("findUsersAuth", record?.id)
+                }
+                onClickDelete={() =>
+                  UpdateRecordAction(
+                    "updateUserById",
+                    {
+                      updateUserByIdInput: {
+                        value: {
+                          userId: record?.id,
+                          deleted: !record?.deleted,
+                        },
+                        required: true,
+                        type: "UpdateUserInput",
+                      },
+                    },
+                    tableQueryResult?.refetch
+                  )
                 }
               />
             );

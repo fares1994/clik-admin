@@ -117,6 +117,7 @@ export const CreateAdmin: React.FC<IResourceComponentsProps> = () => {
             options={[
               { label: "Super Admin", value: "super_admin" },
               { label: "Admin", value: "admin" },
+              { label: "Driver", value: "driver" },
             ]}
             onChange={(value) => setFieldValue("role", value)}
             defaultValue={values.role}

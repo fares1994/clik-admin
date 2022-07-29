@@ -27,6 +27,16 @@ export const UpdateRecordActionWithReturnQuery = async (
         message: "Success",
         description: "Successfully Updated",
       });
+    })
+    .catch((error) => {
+      return notification.error({
+        message:
+          error?.response?.errors?.length > 0
+            ? error?.response?.errors[0]?.message
+            : error?.message
+            ? error?.message
+            : "Something went wrong",
+      });
     });
 };
 
@@ -50,19 +60,26 @@ export const UpdateRecordAction = async (
     variables,
   });
 
-  const response = await clientList.request(query, gqlVariables);
-  if (!response) {
-    return notification.error({
-      message: "Error",
-      description: "Something went wrong",
+  await clientList
+    .request(query, gqlVariables)
+    .then(() => {
+      refetch && refetch();
+      resetForm && resetForm();
+      return notification.success({
+        message: "Success",
+        description: "Successfully Updated",
+      });
+    })
+    .catch((error) => {
+      return notification.error({
+        message:
+          error?.response?.errors?.length > 0
+            ? error?.response?.errors[0]?.message
+            : error?.message
+            ? error?.message
+            : "Something went wrong",
+      });
     });
-  }
-  refetch && refetch();
-  resetForm && resetForm();
-  return notification.success({
-    message: "Success",
-    description: "Successfully updated",
-  });
 };
 
 export const CreateRecordAction = async (
@@ -83,19 +100,26 @@ export const CreateRecordAction = async (
     operation: resource,
     variables,
   });
-  const response = await clientList.request(query, gqlVariables);
-  if (!response) {
-    return notification.error({
-      message: "Error",
-      description: "Something went wrong",
+  await clientList
+    .request(query, gqlVariables)
+    .then(() => {
+      refetch && refetch();
+      resetForm && resetForm();
+      return notification.success({
+        message: "Success",
+        description: "Successfully Created",
+      });
+    })
+    .catch((error) => {
+      return notification.error({
+        message:
+          error?.response?.errors?.length > 0
+            ? error?.response?.errors[0]?.message
+            : error?.message
+            ? error?.message
+            : "Something went wrong",
+      });
     });
-  }
-  refetch && refetch();
-  resetForm && resetForm();
-  return notification.success({
-    message: "Success",
-    description: "Successfully Created",
-  });
 };
 
 export const removeRecord = async (
@@ -121,6 +145,16 @@ export const removeRecord = async (
       return notification.success({
         message: "Success",
         description: "Successfully Deleted",
+      });
+    })
+    .catch((error) => {
+      return notification.error({
+        message:
+          error?.response?.errors?.length > 0
+            ? error?.response?.errors[0]?.message
+            : error?.message
+            ? error?.message
+            : "Something went wrong",
       });
     });
 };
@@ -149,6 +183,16 @@ export const showRecord = async (
     .then((data) => {
       setRecord(data?.data);
       setRefresh && setRefresh(false);
+    })
+    .catch((error) => {
+      return notification.error({
+        message:
+          error?.response?.errors?.length > 0
+            ? error?.response?.errors[0]?.message
+            : error?.message
+            ? error?.message
+            : "Something went wrong",
+      });
     });
 };
 
@@ -171,19 +215,26 @@ export const CreateAdminAction = async (
     variables,
     fields: admins,
   });
-  const response = await clientList.request(query, gqlVariables);
-  if (!response) {
-    return notification.error({
-      message: "Error",
-      description: "Something went wrong",
+  await clientList
+    .request(query, gqlVariables)
+    .then(() => {
+      refetch && refetch();
+      resetForm && resetForm();
+      return notification.success({
+        message: "Success",
+        description: "Successfully Created",
+      });
+    })
+    .catch((error) => {
+      return notification.error({
+        message:
+          error?.response?.errors?.length > 0
+            ? error?.response?.errors[0]?.message
+            : error?.message
+            ? error?.message
+            : "Something went wrong",
+      });
     });
-  }
-  refetch && refetch();
-  resetForm && resetForm();
-  return notification.success({
-    message: "Success",
-    description: "Successfully Created",
-  });
 };
 
 export const GetListAction = async (
@@ -256,7 +307,12 @@ export const CreateMassRecordsAction = async (
     })
     .catch((error) => {
       return notification.error({
-        message: error?.response?.errors[0]?.message,
+        message:
+          error?.response?.errors?.length > 0
+            ? error?.response?.errors[0]?.message
+            : error?.message
+            ? error?.message
+            : "Something went wrong",
       });
     });
 };
@@ -289,11 +345,23 @@ export const removeCustomLinkAction = async (
       userId: { value: userId, type: "String", required: true },
     },
   });
-
-  await clientList.request(query, gqlVariables);
-  refetch && refetch();
-  return notification.success({
-    message: "Success",
-    description: "Successfully Deleted",
-  });
+  await clientList
+    .request(query, gqlVariables)
+    .then(() => {
+      refetch && refetch();
+      return notification.success({
+        message: "Success",
+        description: "Successfully Deleted",
+      });
+    })
+    .catch((error) => {
+      return notification.error({
+        message:
+          error?.response?.errors?.length > 0
+            ? error?.response?.errors[0]?.message
+            : error?.message
+            ? error?.message
+            : "Something went wrong",
+      });
+    });
 };

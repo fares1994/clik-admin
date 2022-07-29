@@ -1,6 +1,5 @@
 import React from "react";
 import {
-  BooleanField,
   CreateButton,
   ExportButton,
   List,
@@ -104,27 +103,21 @@ export const ProductsList: React.FC = () => {
                 onClickEdit={() =>
                   record?._id && edit("findProducts", record?._id)
                 }
-                onClickDelete={
-                  () =>
-                    UpdateRecordAction(
-                      "updateProduct",
-                      {
-                        updateProductInput: {
-                          value: {
-                            _id: record?._id,
-                            deleted: !record?.deleted,
-                          },
-                          required: true,
-                          type: "UpdateProductInput",
+                onClickDelete={() =>
+                  UpdateRecordAction(
+                    "updateProduct",
+                    {
+                      updateProductInput: {
+                        value: {
+                          _id: record?._id,
+                          deleted: !record?.deleted,
                         },
+                        required: true,
+                        type: "UpdateProductInput",
                       },
-                      tableQueryResult?.refetch
-                    )
-                  // removeRecord(
-                  //   "removeProduct-custom",
-                  //   record?._id,
-                  //   tableQueryResult?.refetch
-                  // )
+                    },
+                    tableQueryResult?.refetch
+                  )
                 }
               />
             );

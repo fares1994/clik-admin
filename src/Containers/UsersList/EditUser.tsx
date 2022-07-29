@@ -80,7 +80,7 @@ export const EditUser: React.FC<IResourceComponentsProps> = () => {
         inputs.updateUserByIdInput.value.name = submittedValues.name;
       }
       //   if (submittedValues.email) {
-      //     inputs.updateUserInput.value.email = submittedValues.email;
+      //     inputs.updateUserByIdInput.value.email = submittedValues.email;
       //   }
       // if (submittedValues.gender) {
       //   inputs.updateUserByIdInput.value.gender = submittedValues.gender;
@@ -100,7 +100,7 @@ export const EditUser: React.FC<IResourceComponentsProps> = () => {
       if (submittedValues.twitterId) {
         inputs.updateUserByIdInput.value.twitterId = submittedValues.twitterId;
       }
-      console.log(inputs, "inputsi");
+
       UpdateRecordAction("updateUserById", inputs, handleRefetch);
     },
   });

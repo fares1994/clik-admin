@@ -82,60 +82,75 @@ function App() {
     ];
   }
 
-  resources = [
-    ...resources,
-    {
-      name: "findUsersAuth",
-      options: { label: "Users" },
-      list: UsersList,
-      show: ShowUsers,
-      edit: EditUser,
-      icon: <FiUsers size={20} />,
-    },
-    {
-      name: "findAllOrders",
-      options: { label: "Orders" },
-      list: OrderesList,
-      show: ShowOrder,
-      edit: EditOrder,
-      icon: <BiReceipt size={20} />,
-    },
-    {
-      name: "findProducts",
-      options: { label: "Products" },
-      list: ProductsList,
-      show: ShowProduct,
-      edit: EditProduct,
-      create: CreateProduct,
-      icon: <MdProductionQuantityLimits size={20} />,
-    },
-    {
-      name: "findAllGlobalLinks",
-      options: { label: "Global Links" },
-      list: GlobalLinksList,
-      show: ShowGlobalLink,
-      edit: EditGlobalLink,
-      create: CreateGlobalLink,
-      icon: <AiOutlineLink size={20} />,
-    },
-    {
-      name: "findTitles",
-      options: { label: "Titles" },
-      list: TitlesList,
-      show: ShowTitle,
-      edit: EditTitle,
-      create: CreateTitle,
-      icon: <MdOutlineTitle size={20} />,
-    },
-    {
-      name: "productsIds",
-      options: { label: "Products ID" },
-      list: ProductsIdList,
-      create: CreateProductId,
-      icon: <BiSitemap size={20} />,
-    },
-  ];
+  if (roles === "driver") {
+    resources = [
+      ...resources,
+      {
+        name: "findAllOrders",
+        options: { label: "Orders" },
+        list: OrderesList,
+        show: ShowOrder,
+        edit: EditOrder,
+        icon: <BiReceipt size={20} />,
+      },
+    ];
+  }
 
+  if (roles !== "driver") {
+    resources = [
+      ...resources,
+      {
+        name: "findUsersAuth",
+        options: { label: "Users" },
+        list: UsersList,
+        show: ShowUsers,
+        edit: EditUser,
+        icon: <FiUsers size={20} />,
+      },
+      {
+        name: "findAllOrders",
+        options: { label: "Orders" },
+        list: OrderesList,
+        show: ShowOrder,
+        edit: EditOrder,
+        icon: <BiReceipt size={20} />,
+      },
+      {
+        name: "findProducts",
+        options: { label: "Products" },
+        list: ProductsList,
+        show: ShowProduct,
+        edit: EditProduct,
+        create: CreateProduct,
+        icon: <MdProductionQuantityLimits size={20} />,
+      },
+      {
+        name: "findAllGlobalLinks",
+        options: { label: "Global Links" },
+        list: GlobalLinksList,
+        show: ShowGlobalLink,
+        edit: EditGlobalLink,
+        create: CreateGlobalLink,
+        icon: <AiOutlineLink size={20} />,
+      },
+      {
+        name: "findTitles",
+        options: { label: "Titles" },
+        list: TitlesList,
+        show: ShowTitle,
+        edit: EditTitle,
+        create: CreateTitle,
+        icon: <MdOutlineTitle size={20} />,
+      },
+      {
+        name: "productsIds",
+        options: { label: "Products ID" },
+        list: ProductsIdList,
+        create: CreateProductId,
+        icon: <BiSitemap size={20} />,
+      },
+    ];
+  }
   return (
     <Refine
       Title={() => (
