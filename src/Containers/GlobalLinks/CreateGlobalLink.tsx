@@ -140,7 +140,7 @@ export const CreateGlobalLink: React.FC<IResourceComponentsProps> = () => {
             listType="picture"
             maxCount={1}
             onChange={(file) => {
-              setFieldValue("image", file?.file?.response?.id);
+              setFieldValue("image", file?.file?.response?._id);
             }}
           >
             Upload Image

@@ -5,11 +5,12 @@ import {
   Table,
   TextField,
   BooleanField,
+  ExportButton,
 } from "@pankod/refine-antd";
 import { useNavigation, useTable } from "@pankod/refine-core";
 import { admins } from "Containers/QueryReturns";
 import { Actions } from "Components/ActionsButtons";
-import { removeRecord } from "Containers/Actions/ConfigsActions";
+import { ExportList, removeRecord } from "Containers/Actions/ConfigsActions";
 import { Search } from "Components/Search";
 
 export const AdminsList: React.FC = () => {
@@ -21,6 +22,10 @@ export const AdminsList: React.FC = () => {
       fields: admins,
     },
   });
+
+  const handleExportList = () => {
+    ExportList(tableQueryResult?.data?.data || [], "Admins");
+  };
 
   return (
     <List
@@ -35,6 +40,10 @@ export const AdminsList: React.FC = () => {
               data={tableQueryResult.data?.data || []}
             />
             <CreateButton style={{ marginLeft: 5 }}>Create Admin</CreateButton>
+            <ExportButton
+              onClick={handleExportList}
+              style={{ marginLeft: 5 }}
+            />
           </div>
         ),
       }}

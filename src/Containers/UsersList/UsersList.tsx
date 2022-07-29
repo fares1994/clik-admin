@@ -1,18 +1,21 @@
 import React, { useState } from "react";
-import { BooleanField, List, Table, TextField } from "@pankod/refine-antd";
 import { useNavigation, useTable } from "@pankod/refine-core";
 import { account } from "Containers/QueryReturns";
 import { Actions } from "Components/ActionsButtons";
 import { Search } from "Components/Search";
+import { ExportButton, List, Table, TextField,BooleanField } from "@pankod/refine-antd";
+import { ExportList } from "Containers/Actions/ConfigsActions";
 
 export const UsersList: React.FC = () => {
   const { show, edit } = useNavigation();
   const [searchResults, setSearchResults] = useState([]);
   const { tableQueryResult } = useTable({
-    metaData: {
-      fields: account,
-    },
+    metaData: { fields: account },
   });
+
+  const handleExportList = () => {
+    ExportList(tableQueryResult?.data?.data || [], "Users");
+  };
 
   return (
     <List
@@ -25,6 +28,10 @@ export const UsersList: React.FC = () => {
               setSearchResults={setSearchResults}
               searchResults={searchResults}
               data={tableQueryResult.data?.data || []}
+            />
+            <ExportButton
+              onClick={handleExportList}
+              style={{ marginLeft: 5 }}
             />
           </div>
         ),

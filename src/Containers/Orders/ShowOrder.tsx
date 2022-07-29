@@ -138,12 +138,6 @@ function ShowOrder() {
                       <Text style={{ marginTop: 5 }}>
                         {"Price: " + item?.product?.price || "No Data"}
                       </Text>
-                      <DescriptionWrapper>
-                        <Text style={{ marginTop: 5 }}>
-                          {"Description: " + item?.product?.description ||
-                            "No Data"}
-                        </Text>
-                      </DescriptionWrapper>
                     </div>
                   );
                 })}
