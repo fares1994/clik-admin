@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { List, Table, TextField } from "@pankod/refine-antd";
+import { BooleanField, List, Table, TextField } from "@pankod/refine-antd";
 import { useNavigation, useTable } from "@pankod/refine-core";
 import { account } from "Containers/QueryReturns";
 import { Actions } from "Components/ActionsButtons";
@@ -73,6 +73,13 @@ export const UsersList: React.FC = () => {
           title={"Title"}
           align={"center"}
           render={(value) => <TextField value={value?.title || "No Data"} />}
+        />
+
+        <Table.Column
+          dataIndex={"deleted"}
+          title={"Deleted"}
+          align={"center"}
+          render={(value) => <BooleanField value={value?.deleted} />}
         />
         <Table.Column
           dataIndex={"country"}

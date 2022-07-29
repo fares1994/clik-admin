@@ -14,7 +14,7 @@ export const account = [
   "id",
   "created_at",
   "updated_at",
-  //   "deleted",
+    "deleted",
   // "token",
   {
     myLinks: [
