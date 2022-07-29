@@ -1,9 +1,15 @@
 import React from "react";
-import { CreateButton, List, Table, TextField } from "@pankod/refine-antd";
+import {
+  CreateButton,
+  ExportButton,
+  List,
+  Table,
+  TextField,
+} from "@pankod/refine-antd";
 import { useNavigation, useTable } from "@pankod/refine-core";
 import { productsId } from "Containers/QueryReturns";
 import { Actions } from "Components/ActionsButtons";
-import { UpdateRecordAction } from "../Actions/ConfigsActions";
+import { ExportList, UpdateRecordAction } from "../Actions/ConfigsActions";
 import { Search } from "Components/Search";
 
 export const ProductsIdList: React.FC = () => {
@@ -12,6 +18,10 @@ export const ProductsIdList: React.FC = () => {
   const { tableQueryResult } = useTable({
     metaData: { fields: productsId },
   });
+
+  const handleExportList = () => {
+    ExportList(tableQueryResult?.data?.data || [], "ProductsId");
+  };
 
   return (
     <List
@@ -28,6 +38,10 @@ export const ProductsIdList: React.FC = () => {
             <CreateButton style={{ marginLeft: 5 }}>
               Create Product ID
             </CreateButton>
+            <ExportButton
+              onClick={handleExportList}
+              style={{ marginLeft: 5 }}
+            />
           </div>
         ),
       }}

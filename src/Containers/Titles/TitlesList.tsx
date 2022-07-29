@@ -2,6 +2,7 @@ import React from "react";
 import {
   BooleanField,
   CreateButton,
+  ExportButton,
   List,
   Table,
   TextField,
@@ -9,7 +10,7 @@ import {
 import { useNavigation, useTable } from "@pankod/refine-core";
 import { titles } from "Containers/QueryReturns";
 import { Actions } from "Components/ActionsButtons";
-import { UpdateRecordAction } from "../Actions/ConfigsActions";
+import { ExportList, UpdateRecordAction } from "../Actions/ConfigsActions";
 import { Search } from "Components/Search";
 
 export const TitlesList: React.FC = () => {
@@ -18,6 +19,10 @@ export const TitlesList: React.FC = () => {
   const { tableQueryResult } = useTable({
     metaData: { fields: titles },
   });
+
+  const handleExportList = () => {
+    ExportList(tableQueryResult?.data?.data || [], "Titles");
+  };
 
   return (
     <List
@@ -32,6 +37,10 @@ export const TitlesList: React.FC = () => {
               data={tableQueryResult.data?.data || []}
             />
             <CreateButton style={{ marginLeft: 5 }}>Create Title</CreateButton>
+            <ExportButton
+              onClick={handleExportList}
+              style={{ marginLeft: 5 }}
+            />
           </div>
         ),
       }}
