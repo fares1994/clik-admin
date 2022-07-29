@@ -1,9 +1,12 @@
 import React from "react";
-import { List, Table, TextField } from "@pankod/refine-antd";
+import { ExportButton, List, Table, TextField } from "@pankod/refine-antd";
 import { useNavigation, useTable } from "@pankod/refine-core";
 import { order } from "Containers/QueryReturns";
 import { Actions } from "Components/ActionsButtons";
-import { UpdateRecordAction } from "Containers/Actions/ConfigsActions";
+import {
+  ExportList,
+  UpdateRecordAction,
+} from "Containers/Actions/ConfigsActions";
 import { Search } from "Components/Search";
 
 export const OrderesList: React.FC = () => {
@@ -14,6 +17,10 @@ export const OrderesList: React.FC = () => {
     resource: "findAllOrders",
     metaData: { fields: order },
   });
+
+  const handleExportList = () => {
+    ExportList(tableQueryResult?.data?.data || [], "Orders");
+  };
 
   return (
     <List
@@ -26,6 +33,10 @@ export const OrderesList: React.FC = () => {
               setSearchResults={setSearchResults}
               searchResults={searchResults}
               data={tableQueryResult.data?.data || []}
+            />
+            <ExportButton
+              onClick={handleExportList}
+              style={{ marginLeft: 5 }}
             />
           </div>
         ),

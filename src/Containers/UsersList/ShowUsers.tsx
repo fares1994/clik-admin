@@ -22,6 +22,7 @@ import dayjs from "dayjs";
 import { useParams } from "react-router-dom";
 import {
   GetListAction,
+  removeCustomLinkAction,
   showRecord,
   UpdateRecordAction,
 } from "Containers/Actions/ConfigsActions";
@@ -279,7 +280,7 @@ function ShowUsers() {
               /> */}
 
               <Table.Column<any>
-                title={"Actions"}
+                title={"Image"}
                 dataIndex="actions"
                 align="center"
                 render={(_text, record): any => {
@@ -336,7 +337,7 @@ function ShowUsers() {
               />
 
               <Table.Column<any>
-                title={"Actions"}
+                title={"Image"}
                 dataIndex="actions"
                 align="center"
                 render={(_text, record): any => {
@@ -348,6 +349,28 @@ function ShowUsers() {
                     >
                       Image
                     </a>
+                  );
+                }}
+              />
+
+              <Table.Column<any>
+                title={"Actions"}
+                dataIndex="actions"
+                align="center"
+                render={(_text, link): any => {
+                  return (
+                    <Actions
+                      name_ar="Link"
+                      deleteRecord
+                      record={record}
+                      onClickDelete={() =>
+                        removeCustomLinkAction(
+                          link?.id,
+                          record?.id,
+                          handleRefetch
+                        )
+                      }
+                    />
                   );
                 }}
               />

@@ -5,6 +5,7 @@ import { admins } from "Containers/QueryReturns";
 import * as gql from "gql-query-builder";
 import { GraphQLClient } from "graphql-request";
 import { clientWithHeaders } from "./AuthActions";
+import * as XLSX from "xlsx";
 
 export const UpdateRecordActionWithReturnQuery = async (
   resource: string,
@@ -258,4 +259,41 @@ export const CreateMassRecordsAction = async (
         message: error?.response?.errors[0]?.message,
       });
     });
+};
+
+export const ExportList = (data: any[], fileName: string) => {
+  const wb = XLSX.utils.book_new();
+  const ws = XLSX.utils.json_to_sheet(data || []);
+  XLSX.utils.book_append_sheet(wb, ws, `${fileName} List`);
+  XLSX.writeFile(wb, `${fileName}List.xlsx`);
+};
+
+export const removeCustomLinkAction = async (
+  customLinkId: string,
+  userId: string,
+  refetch?: () => void
+) => {
+  const token = JSON.parse(
+    (await localStorage.getItem("account")) || ""
+  )?.token;
+  let clientList = new GraphQLClient(API_URL, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
+
+  const { query, variables: gqlVariables } = gql.mutation({
+    operation: "removeCustomLinkByUserId",
+    variables: {
+      customLinkId: { value: customLinkId, type: "String", required: true },
+      userId: { value: userId, type: "String", required: true },
+    },
+  });
+
+  await clientList.request(query, gqlVariables);
+  refetch && refetch();
+  return notification.success({
+    message: "Success",
+    description: "Successfully Deleted",
+  });
 };

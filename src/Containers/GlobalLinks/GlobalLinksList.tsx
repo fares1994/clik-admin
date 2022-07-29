@@ -2,6 +2,7 @@ import React from "react";
 import {
   BooleanField,
   CreateButton,
+  ExportButton,
   List,
   Table,
   TextField,
@@ -9,7 +10,7 @@ import {
 import { useNavigation, useTable } from "@pankod/refine-core";
 import { globalLniks } from "Containers/QueryReturns";
 import { Actions } from "Components/ActionsButtons";
-import { UpdateRecordAction } from "../Actions/ConfigsActions";
+import { ExportList, UpdateRecordAction } from "../Actions/ConfigsActions";
 import { Search } from "Components/Search";
 
 export const GlobalLinksList: React.FC = () => {
@@ -20,6 +21,10 @@ export const GlobalLinksList: React.FC = () => {
       fields: globalLniks,
     },
   });
+
+  const handleExportList = () => {
+    ExportList(tableQueryResult?.data?.data || [], "GlobalLInks");
+  };
 
   return (
     <List
@@ -36,6 +41,10 @@ export const GlobalLinksList: React.FC = () => {
             <CreateButton style={{ marginLeft: 5 }}>
               Create Global Link
             </CreateButton>
+            <ExportButton
+              onClick={handleExportList}
+              style={{ marginLeft: 5 }}
+            />
           </div>
         ),
       }}
