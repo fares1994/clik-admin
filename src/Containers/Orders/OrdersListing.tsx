@@ -106,7 +106,13 @@ export const OrderesList: React.FC = () => {
           align={"center"}
           render={(value) => <TextField value={value || "No Data"} />}
         />
-
+        <Table.Column
+          dataIndex={"order_id_seq"}
+          title={"Order ID"}
+          width={10}
+          align={"center"}
+          render={(value) => <TextField value={value || "No Data"} />}
+        />
         {/* <Table.Column
           dataIndex={"deleted"}
           title={"Deleted"}

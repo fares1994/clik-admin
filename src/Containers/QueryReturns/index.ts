@@ -73,6 +73,7 @@ export const order = [
   "deleted",
   "driver_name",
   "order_status",
+  "order_id_seq",
   {
     products: [
       {
