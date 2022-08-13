@@ -23,7 +23,18 @@ export const UsersList: React.FC = () => {
   });
 
   const handleExportList = () => {
-    ExportList(tableQueryResult?.data?.data || [], "Users");
+    const filteredData = tableQueryResult?.data?.data?.map((item) => {
+      return {
+        id: item?.id,
+        name: item?.name,
+        username: item?.username,
+        email: item?.email,
+        title: item?.title?.title,
+        deleted: item?.deleted,
+        country: item?.country,
+      };
+    });
+    ExportList(filteredData || [], "Users");
   };
 
   return (
