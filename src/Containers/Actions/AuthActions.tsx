@@ -2,7 +2,7 @@ import { notification } from "@pankod/refine-antd";
 import * as gql from "gql-query-builder";
 import { GraphQLClient } from "graphql-request";
 
-export let clientWithHeaders = new GraphQLClient('https://clikstaging.herokuapp.com/graphql', {
+export let clientWithHeaders = new GraphQLClient('https://clikjo/graphql', {
     headers: {
         "Authorization": `Bearer `
     }
@@ -11,7 +11,7 @@ export let clientWithHeaders = new GraphQLClient('https://clikstaging.herokuapp.
 // const getToken = async () => {
 //     const account = await localStorage.getItem('account');
 //     if (account && JSON.parse(account)?.token) {
-//         clientWithHeaders = new GraphQLClient('https://clikstaging.herokuapp.com/graphql', {
+//         clientWithHeaders = new GraphQLClient('https://clikjo/graphql', {
 //             headers: {
 //                 "Authorization": `Bearer ${JSON.parse(account)?.token}`
 //             }
@@ -44,7 +44,7 @@ export const loginAction = async (username: string, password: string) => {
             ]
         });
         const response = await clientWithHeaders.request(query, gqlVariables) || undefined;
-        clientWithHeaders = new GraphQLClient('https://clikstaging.herokuapp.com/graphql',
+        clientWithHeaders = new GraphQLClient('https://clikjo/graphql',
             {
                 headers: {
                     "Authorization": `Bearer ${response['loginAdmin']?.token}`
