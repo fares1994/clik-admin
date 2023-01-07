@@ -41,9 +41,9 @@ import { ProductsIdList } from "Containers/ProdcutsID/ProductsIdList";
 import { CreateProductId } from "Containers/ProdcutsID/CreateProductId";
 import { useEffect, useState } from "react";
 
-export const API_URL = "https://clikstaging.herokuapp.com/graphql";
-export const UPLOAD_URI = `https://clikstaging.herokuapp.com/uploads/public`;
-export const VIEW_UPLOAD_URI = `https://clikstaging.herokuapp.com/uploads/`;
+export const API_URL = "https://clikjo/graphql";
+export const UPLOAD_URI = `https://clikjo/uploads/public`;
+export const VIEW_UPLOAD_URI = `https://clikjo/uploads/`;
 
 function App() {
   const [roles, setRoles] = useState<string>();
